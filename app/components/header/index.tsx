@@ -102,20 +102,20 @@ export const Header = ({ style = "" }: { style?: string }) => {
 
       {menuOverlay && (
         <div
-          className="fixed top-0 left-0 w-full h-screen pt-4 bg-background/85 backdrop-blur-md z-40"
+          className="fixed inset-0 z-[70] bg-black/40 dark:bg-black/60 backdrop-blur-[2px]"
           onClick={() => setMenuOverlay(false)}
         >
           <div
-            className="flex flex-col h-full overflow-auto"
+            className="ml-auto h-full w-full max-w-sm bg-card text-foreground! border-l border-border shadow-xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-4 pt-2 pb-4 border-b border-border">
+            <div className="sticky top-0 z-10 flex items-center justify-between px-4 pt-2 pb-4 border-b border-border bg-card">
               <div className="flex items-center gap-2">
                 <button
                   onClick={() =>
                     i18n.changeLanguage(i18n.language === "es" ? "en" : "es")
                   }
-                  className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors hover:cursor-pointer text-foreground!"
+                  className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary/50 transition-colors hover:cursor-pointer text-foreground!"
                   aria-label="Change language"
                 >
                   translate
@@ -124,18 +124,18 @@ export const Header = ({ style = "" }: { style?: string }) => {
               </div>
               <button
                 onClick={() => setMenuOverlay(false)}
-                className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors text-foreground!"
+                className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary/50 transition-colors text-foreground!"
                 aria-label="Close menu"
               >
                 close
               </button>
             </div>
-            <div className="flex flex-col mt-10 divide-y border-t border-border divide-border">
+            <div className="flex flex-col divide-y divide-border overflow-auto">
               {sections.map((section, index) => (
                 <button
                   key={`${section}-${index}`}
                   onClick={() => scrollToSection(index.toString())}
-                  className="text-foreground! text-2xl text-right py-4 px-4 hover:bg-secondary transition-colors"
+                  className="text-foreground! text-lg text-left py-4 px-5 font-semibold hover:bg-secondary/40 transition-colors"
                 >
                   {section}
                 </button>
