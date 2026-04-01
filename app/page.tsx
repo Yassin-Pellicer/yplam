@@ -12,32 +12,63 @@ import Projects from "./components/projects";
 import { Contact } from "./components/contact";
 import { Footer } from "./components/footer";
 import { LatestOnBlog } from "./components/last-on-blog";
+import { ReactNode } from "react";
 
+const PageSection = ({
+  children,
+  withAnimation = true,
+}: {
+  children: ReactNode;
+  withAnimation?: boolean;
+}) => {
+  const content = (
+    <div className="w-full border-b border-foreground/10 px-4 sm:px-12">
+      <div className="mx-auto w-full max-w-6xl border-x border-foreground/10 bg-background px-4 py-12 sm:px-8">
+        {children}
+      </div>
+    </div>
+  );
+
+  if (!withAnimation) {
+    return content;
+  }
+
+  return <InViewSection>{content}</InViewSection>;
+};
 
 export default function Portfolio() {
-    return (
-    <div className="flex justify-center flex-col items-center bg-gradient-to-br from-blue-600 to-gray-900 select-none">
-      <section className="flex flex-col items-center min-h-screen max-w-6xl sm:px-12 px-4">
+  return (
+    <div className="flex justify-center flex-col items-center dotted-bg select-none">
+      <section className="flex flex-col items-center min-h-screen w-full">
         <Header></Header>
 
-        <InViewSection>
-          <Hero></Hero>
+        <div className="border-foreground/10 flex flex-col border-b w-full items-center mx-auto text-center sm:px-12 px-4">
+          <InViewSection>
+            <Hero></Hero>
+          </InViewSection>
+        </div>
+
+        <PageSection withAnimation={false}>
           <About></About>
+        </PageSection>
+
+        <PageSection withAnimation={false}>
           <Projects></Projects>
-        </InViewSection>
-         
-        <InViewSection>
+        </PageSection>
+
+        <PageSection withAnimation={false}>
           <LatestOnBlog></LatestOnBlog>
-          <Experience></Experience> 
-        </InViewSection>
+        </PageSection>
 
-        <InViewSection>
+        <PageSection>
+          <Experience></Experience>
+        </PageSection>
+
+        <PageSection>
           <AbsCerts></AbsCerts>
-        </InViewSection>
+        </PageSection>
 
-        <InViewSection>
-          <Contact></Contact>
-        </InViewSection>
+        <Contact></Contact>
       </section>
       <Footer style="black"></Footer>
     </div>

@@ -76,7 +76,7 @@ export default function Portfolio() {
                           onClick={() => router.push("/blog")}
                           className="absolute top-4 left-4"
                         >
-                          <span className="hover:cursor-pointer material-symbols-outlined bg-white rounded-full p-1 hover:bg-blue-600 hover:text-white transition duration-100" style={{ fontSize: "24px" }}>
+                          <span className="hover:cursor-pointer material-symbols-outlined bg-white rounded-full p-1 hover:bg-blue-600 hover:text-foreground! transition duration-100" style={{ fontSize: "24px" }}>
                             arrow_back
                           </span>
                         </button>
@@ -93,7 +93,7 @@ export default function Portfolio() {
                                   {post.tags.map((tag: string, i: number) => (
                                     <span
                                       key={i}
-                                      className="bg-blue-700/60 text-xs text-white px-2 h-fit py-0.5 rounded-full"
+                                      className="bg-blue-700/60 text-xs text-foreground! px-2 h-fit py-0.5 rounded-full"
                                     >
                                       #{tag}
                                     </span>

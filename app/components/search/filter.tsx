@@ -56,7 +56,7 @@ export default function FilterMenu() {
         <Filter className="w-4 h-4 mr-1" />
         Filter
         {activeFiltersCount > 0 && (
-          <span className="ml-1 px-1  text-xs bg-blue-600 text-white rounded-full">
+          <span className="ml-1 px-1  text-xs bg-blue-600 text-foreground! rounded-full">
             {activeFiltersCount}
           </span>
         )}
@@ -97,7 +97,7 @@ export default function FilterMenu() {
                       onClick={() => searchContext.toggleTag(tag)}
                       className={`inline-flex items-center px-2 py-1 rounded-full text-xs transition-colors ${
                         isSelected
-                          ? "bg-blue-600 text-white"
+                          ? "bg-blue-600 text-foreground!"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                     >
@@ -124,7 +124,7 @@ export default function FilterMenu() {
                       onClick={() => searchContext.toggleTechnology(tech)}
                       className={`inline-flex items-center px-2 py-1 rounded text-xs transition-colors ${
                         isSelected
-                          ? "bg-green-600 text-white"
+                          ? "bg-green-600 text-foreground!"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                     >

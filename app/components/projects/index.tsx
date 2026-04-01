@@ -1,283 +1,138 @@
-import { useEffect, useState, useCallback } from "react";
-import { Trans, useTranslation } from "next-i18next";
-import { InView } from "react-intersection-observer";
-import { InViewSection } from "../motion";
-import useEmblaCarousel from 'embla-carousel-react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/navigation";
+import { Computer } from "lucide-react";
 
-export default () => {
+type Project = {
+  indev?: boolean;
+  route: string;
+  title: string;
+  icon?: string;
+  technologies: string[];
+  date: string;
+  description: string;
+  content: string;
+  link: string;
+  gallery?: {
+    images: string[];
+    videos: string[];
+    maxH: number;
+  };
+  projects?: string;
+};
 
-  const { t } = useTranslation();
+const normalizeKey = (value: string) =>
+  value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
-  const projects = t("sections.projects.items", { returnObjects: true }) as Array<{
-    indev?: boolean;
-    route: string;
-    title: string;
-    icon: string;
-    technologies: Array<string>;
-    date: string;
-    description: string;
-    content: string[];
-    link: string;
-    color: string;
-    gallery?: {
-      images: Array<string>;
-      videos: Array<string>;
-      maxH: number;
-    };
-    projects?: string;
-  }>;
+const blogMap: Record<string, string> = {
+  lineart: "lineart",
+  "computer-vision": "traffic",
+  "vocabulary-app": "vocab",
+  portfolio: "portfolio",
+  pinpoint: "portfolio",
+  tutorgo: "portfolio",
+  "up-and-down-english": "portfolio",
+};
 
-  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
-  const selectedProject = projects[selectedProjectIndex];
-  const [option, setOption] = useState("about");
+const resolveBlogId = (project: Project) => {
+  const explicit = project.projects ? normalizeKey(project.projects) : "";
+  const titleKey = normalizeKey(project.title);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    skipSnaps: false,
-    dragFree: true,
-    containScroll: 'trimSnaps'
-  });
+  if (explicit && blogMap[explicit]) return blogMap[explicit];
 
-  const scrollPrev = useCallback((newIndex: number) => {
-    setOption("about");
-    if (0 > newIndex) {
-      newIndex = projects.length - 1;
-      if (emblaApi) {
-        emblaApi.scrollTo(newIndex);
-      }
-    }
-    setSelectedProjectIndex(newIndex);
-    if (emblaApi) {
-      emblaApi.scrollPrev();
-    }
-  }, [emblaApi]);
+  if (titleKey.includes("pinpoint")) return "portfolio";
+  if (titleKey.includes("tutorgo")) return "portfolio";
+  if (titleKey.includes("up-and-down")) return "portfolio";
 
-  const scrollNext = useCallback((newIndex: number) => {
-    setOption("about");
-    if (newIndex >= projects.length) {
-      newIndex = 0;
-      if (emblaApi) {
-        emblaApi.scrollTo(newIndex);
-      }
-    }
-    setSelectedProjectIndex(newIndex);
-    if (emblaApi) {
-      emblaApi.scrollTo(newIndex);
-    }
-  }, [emblaApi]);
+  return "portfolio";
+};
 
-  useEffect(() => {
-    if (!selectedProject.gallery) setOption("about");
-  }, [selectedProject]);
+const Projects = () => {
+  const { t, i18n } = useTranslation();
+  const router = useRouter();
+
+  const projects = t("sections.projects.items", { returnObjects: true }) as Project[];
 
   return (
-    <>
-      <section id="3">
-        <h2 className="sm:text-5xl text-4xl font-bold text-white tracking-tighter mb-6">
-          {t("sections.projects.title")}
-        </h2>
+    <section id="3">
+      <h2 className="flex flex-row gap-4 items-center sm:text-5xl text-4xl font-bold text-foreground! tracking-tighter mb-6">
+        <Computer size={42} strokeWidth={1.2} />
+        {t("sections.projects.title")}
+      </h2>
 
-        <div className="relative max-w-sm md:max-w-2xl lg:max-w-[1058px] mx-auto">
-          {/* Carousel Container */}
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-4">
-              {projects.map((project, index) => (
-                <div
-                  key={index}
-                  onClick={(e) => {
-                    setSelectedProjectIndex(index);
-                  }}
-                  className={`flex-none w-fit md:w-[calc(50%-8px)] mb-4 lg:w-[calc(33%-8px)] snap-center relative ${project.color} pb-4 backdrop-blur-md rounded-2xl border ${selectedProjectIndex === index
-                    ? "border-blue-500 shadow-lg"
-                    : "border-white/10"
-                    } hover:shadow-md transition-all flex duration-200 cursor-pointer`}
-                >
-                  {project.indev && (
-                    <div className="absolute top-4 right-4 flex flex-row shadow-xl items-center justify-center gap-2 bg-green-100 w-fit rounded-full px-3 text-black font-bold tracking-tighter border-2 border-red-500 z-10">
-                      <div className="relative h-2 w-2 rounded-full bg-red-500 animate-pulse">
-                        <div className="absolute h-2 w-2 rounded-full bg-red-500 animate-[ping_0.75s_infinite]"></div>
-                      </div>
-                      <span className="text-sm">🚀</span>
-                    </div>
-                  )}
-                  <div className="flex flex-col mb-2">
-                    <img
-                      src={project.gallery?.images[0]}
-                      alt={project.title}
-                      className="rounded-t-xl mb-4 max-h-[250px] object-cover w-full"
-                    />
-                    <div className="flex items-center gap-2 mb-2 px-4">
-                      <h3 className="text-2xl tracking-tight font-bold text-white mt-1 align-center">
-                        {project.title}
-                      </h3>
-                    </div>
-                    <div className="flex justify-between items-center gap-4 px-6">
-                      <h3 className="text-lg font-bold text-white items-center flex gap-2">
-                        <span className="material-symbols-outlined">event</span>{t("sections.projects.developedIn")}{" "}
-                        {project.date}
-                      </h3>
-                      <div className="flex gap-2">
-                        {project.technologies.map((tech, techIndex) => (
-                          <i key={techIndex} className={`${tech} text-white text-md`}></i>
-                        ))}
-                      </div>
-                    </div>
-                    <hr className="border-t-2 border-white/50 my-4" />
-                    <p className="text-white text-lg px-6">{project.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {projects.map((project, index) => {
+          const blogId = resolveBlogId(project);
 
-        {/* Navigation Buttons */}
-        <div className="flex justify-between flex-row items-center w-full mb-4 mt-1">
-          <button
-            onClick={() => scrollPrev(selectedProjectIndex - 1)}
-            aria-label="Scroll left"
-            className="flex flex-col justify-center items-center w-10 h-10 z-10 bg-black/40 hover:bg-black/70 text-white rounded-full shrink-0 transition-colors"
-            style={{ userSelect: "none" }}
-          >
-            <span className="material-symbols-outlined">chevron_left</span>
-          </button>
-
-          {/* Scroll Indicators */}
-          <div className="flex justify-center gap-2">
-            {projects.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setSelectedProjectIndex(index);
-                  emblaApi?.scrollTo(index);
-                }}
-                className={`h-2 rounded-full transition-all duration-300 ${selectedProjectIndex === index
-                  ? "w-8 bg-white"
-                  : "w-2 bg-white/30 hover:bg-white/50"
-                  }`}
-                aria-label={`Go to project ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={() => scrollNext(selectedProjectIndex + 1)}
-            aria-label="Scroll right"
-            className="flex flex-col justify-center items-center w-10 h-10 z-10 bg-black/40 hover:bg-black/70 text-white rounded-full shrink-0 transition-colors"
-            style={{ userSelect: "none" }}
-          >
-            <span className="material-symbols-outlined">chevron_right</span>
-          </button>
-        </div>
-      </section>
-
-      <InViewSection triggerKey={selectedProject.title}>
-        <div
-          className={`snap-center relative backdrop-blur-md rounded-2xl p-6 border bg-blue-900 border-white/10 hover:shadow-md transition-all duration-200 pb-8`}
-        >
-          <div className="flex flex-col md:flex-row md:gap-6 flex-wrap md:flex-nowrap">
-            <div className="flex flex-col w-full md:w-1/2">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-4xl">{selectedProject.icon}</span>
-                <h3 className="text-2xl font-bold text-white">
-                  {selectedProject.title}
-                </h3>
-              </div>
-              <div className="sm:flex hidden justify-between items-center gap-4">
-                <h3 className="text-lg font-bold text-white items-center flex gap-2">
-                  <span className="material-symbols-outlined">event</span>{t("sections.projects.developedIn")}{" "}
-                  {selectedProject.date}
-                </h3>
-                <div className="sm:flex hidden gap-2">
-                  {selectedProject.technologies.map((tech, index) => (
-                    <i key={index} className={`${tech} text-white text-xl`}></i>
-                  ))}
-                </div>
-              </div>
-              <img key={selectedProject.title} src={selectedProject.route} className="sm:block hidden object-cover mt-4 rounded-xl w-full max-h-[250px]"></img>
-              <hr className="border-t-2 border-white/50 sm:my-4 sm:flex hidden" />
-              <p className="text-white text-md font-bold sm:flex hidden">
-                {selectedProject.description}
-              </p>
-              <div className="hidden md:flex flex-row gap-2 mt-4">
-                <div
-                  onClick={() => window.open(selectedProject.link, "_blank")}
-                  className="hover:bg-green-500 w-fit justify-center hover:text-white flex items-center gap-2 bg-green-100 rounded-xl px-3 py-2 text-black font-bold tracking-tighter border-2 border-green-500 transition-all duration-200 h-full cursor-pointer"
-                >
-                  <span
-                    className="devicon-github-plain"
-                    style={{ fontSize: "24px" }}
-                  ></span>
-                </div>
-                {selectedProject.indev && (
-                  <div className="flex flex-row shadow-xl items-center justify-center gap-2 bg-green-100 w-fit rounded-xl px-3 py-2 text-black font-bold tracking-tighter border-2 border-red-500 h-full">
-                    <div className="relative h-2 w-2 rounded-full bg-red-500 animate-pulse">
-                      <div className="absolute h-2 w-2 rounded-full bg-red-500 animate-[ping_0.75s_infinite]"></div>
-                    </div>
-                    🚀
+          return (
+            <article
+              key={`${project.title}-${index}`}
+              onClick={() => router.push(`/blog/${blogId}`)}
+              className="rounded-2xl border border-border bg-card overflow-hidden hover:shadow-md transition-all duration-200 cursor-pointer min-h-[420px] flex flex-col"
+            >
+              <div className="relative h-48 w-full bg-muted overflow-hidden">
+                {project.indev && (
+                  <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-background shadow-sm text-foreground! border border-primary/40 rounded-full px-3 py-1 text-xs font-bold tracking-tight">
+                    <span className="relative h-2 w-2 rounded-full bg-primary animate-pulse">
+                      <span className="absolute h-2 w-2 rounded-full bg-primary animate-[ping_0.75s_infinite]"></span>
+                    </span>
+                    {t("sections.projects.inDevelopment")}
                   </div>
                 )}
-              </div>
-            </div>
-            <div className="flex flex-col w-full md:w-1/2">
-              <div className="flex justify-between text-white! bg-transparent mb-8">
-                <button
-                  className={`flex w-full py-2 font-bold tracking-tighter px-4 transition-all hover:cursor-pointer duration-50 items-center align-center justify-center ${option === "about" ? "border-b-2 border-white mt-[-1px]" : ""}`}
-                  onClick={() => setOption("about")}
-                >
-                  <span className="material-symbols-outlined mr-2">info</span> About the project
-                </button>
-                {selectedProject.gallery && selectedProject.gallery.images.length > 1 && <button
-                  className={`flex w-full py-2 font-bold tracking-tighter px-4 transition-all hover:cursor-pointer duration-50 items-center align-center justify-center ${option === "gallery" ? "border-b-2 border-white mt-[-1px]" : ""}`}
-                  onClick={() => setOption("gallery")}
-                >
-                  <span className="material-symbols-outlined mr-2">photo</span> Gallery and demos
-                </button>}
-              </div>
-              {option === "about" &&
-                <div
-                  className="text-white text-base"
-                  dangerouslySetInnerHTML={{ __html: selectedProject.content }}
+                <img
+                  src={project.gallery?.images?.[0] ?? project.route}
+                  alt={project.title}
+                  className="h-full w-full object-cover saturate-75"
                 />
-              }
-              {option === "gallery" && (() => {
-                const media = [
-                  ...(selectedProject.gallery?.images?.map(src => ({ type: "image", src })) || []),
-                  ...(selectedProject.gallery?.videos?.map(src => ({ type: "video", src })) || []),
-                ];
-                const maxHeight = selectedProject.gallery?.maxH || 400;
-                return (
-                  <div
-                    key={selectedProjectIndex}
-                    className="grid gap-4 overflow-auto"
-                    style={{ maxHeight: `${maxHeight}px` }}
-                  >
-                    {media.map((item, index) =>
-                      item.type === "image" ? (
-                        <img
-                          key={`${selectedProjectIndex}-img-${index}`}
-                          src={item.src}
-                          className="object-cover w-full rounded-xl select-none hover:cursor-default"
-                        />
-                      ) : (
-                        <video
-                          key={`${selectedProjectIndex}-vid-${index}`}
-                          src={item.src}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="object-cover w-full h-full rounded-xl"
-                        />
-                      )
-                    )}
+              </div>
+
+              <div className="flex flex-col h-full border-t border-border">
+                <div className="border-b border-border/70 px-4 py-3">
+                  <div className="flex items-center justify-center gap-2 min-h-[5rem]">
+                    <h3 className="text-xl font-bold tracking-tight leading-tight text-foreground!">
+                      {project.title}
+                    </h3>
                   </div>
-                );
-              })()}
-            </div>
-          </div>
-        </div>
-      </InViewSection>
-    </>
+                </div>
+
+                <div className="border-b border-border/70 px-4 py-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed min-h-[2.25rem]">
+                    {project.description}
+                  </p>
+                </div>
+
+                <div className="px-4 pt-3 flex items-center justify-between gap-3">
+                  <p className="text-xs text-muted-foreground flex items-center gap-1 shrink-0">
+                    <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>
+                      calendar_month
+                    </span>
+                    {project.date}
+                  </p>
+                  <div className="flex flex-wrap gap-2 justify-end">
+                    {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                      <i key={techIndex} className={`${tech} text-base text-muted-foreground`}></i>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-auto px-4 pb-4 pt-4">
+                  <div className="text-sm font-bold text-primary flex items-center gap-1">
+                    {i18n.language?.startsWith("es") ? "Ver artículo" : "Read article"}
+                    <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
+                      arrow_right_alt
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
   );
 };
+
+export default Projects;

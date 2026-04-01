@@ -12,39 +12,39 @@
   "hero": {
     "greeting": "Hola, soy...",
     "title": "Desarrollador de Software | Graduado en Ingeniería Informática por la UPV",
-    "subtitle": "Especializado en ciencias de la computación 🤖",
+    "subtitle": "Especializado en ciencias de la computación",
     "cta": "Más información"
   },
   "carousel": {
-    "dev": "¡En desarrollo! 🚀",
+    "dev": "¡En desarrollo!",
     "items": [
       {
-        "emoji": "💯",
+        "icon": "Award",
         "title": "Expediente académico notable",
         "subtitle": "Media de 7.7 en un currículo impartido en inglés."
       },
       {
-        "emoji": "💼",
+        "icon": "BriefcaseBusiness",
         "title": "+2 Años de Experiencia en TIC",
         "subtitle": "Desarrollo front-end, back-end y QA con tecnologías recientes."
       },
       {
-        "emoji": "🌍",
+        "icon": "Globe2",
         "title": "Welche Sprachen sprechen Sie?",
         "subtitle": "Fluidez total en inglés, B1 en francés, y conocimientos básicos en Alemán. Nativo español y valencià."
       },
       {
-        "emoji": "🎓",
+        "icon": "GraduationCap",
         "title": "Graduado con Menciones",
         "subtitle": "Ingeniería Informática UPV - Currículo en Inglés (Alto Rendimiento Académico)."
       },
       {
-        "emoji": "✨",
+        "icon": "Sparkles",
         "title": "+1 Años de experiencia en desarrollo full-stack",
         "subtitle": "Y cada día sigo aprendiendo."
       },
       {
-        "emoji": "🗒️",
+        "icon": "BookText",
         "title": "Blog donde documento mi aprendizaje",
         "subtitle": "¡En constante actualización!"
       }
@@ -52,13 +52,13 @@
   },
   "sections": {
     "about": {
-      "title": "🤔 Sobre Mí",
-      "description": "Graduado en ingeniería informática por la UPV que busca crecer como profesional en el ámbito del desarrollo de soluciones software y de las tecnologías de front y back. Relacionado con frameworks como Next, Angular y librerías de front (React). Trabajado también con frameworks de backend en PHP (Symphony) en proyectos enfocados al retail y al monitoreo de transacciones en grandes superficies.",
+      "title": "Sobre Mí",
+      "description": "Graduado en ingeniería informática por la UPV que busca crecer como profesional en el ámbito del desarrollo de soluciones software. Relacionado con frameworks como Next, Angular y librerías de front (React). Trabajado en proyectos enfocados al retail y al monitoreo de transacciones en grandes superficies.",
       "personal": "Cuando no estoy programando, me gusta ir al gimnasio, jugar videojuegos (sobre todo si son de estrategia) o escuchar música."
     },
     "experience": {
-      "title": "💼 Experiencia Laboral",
-      "openToWork": "Open to Work! 😊",
+      "title": "Experiencia Laboral",
+      "openToWork": "Open to Work!",
       "experiences": [
         {
           "id": 4,
@@ -120,7 +120,7 @@
       ]
     },
     "skills": {
-      "title": "✨ Habilidades",
+      "title": "Habilidades y Certificaciones",
       "items": [
         {
           "name": "Frontend Development",
@@ -188,7 +188,7 @@
       ]
     },
     "certifications": {
-      "title": "🎖️ Certificaciones",
+      "title": "Certificaciones",
       "items": [
         {
           "id": 1,
@@ -212,11 +212,11 @@
       "cta": "Certificado disponible"
     },
     "projects": {
-      "title": "💻 Proyectos",
+      "title": "Proyectos",
       "viewCode": "Ver código",
       "developedIn": "",
-      "inDevelopment": "¡Actualmente en desarrollo! 🚀",
-      "comingSoon": "¡En camino! 🚀",
+      "inDevelopment": "¡Actualmente en desarrollo!",
+      "comingSoon": "¡En camino!",
       "about": "Sobre el proyecto",
       "gallery": "Galería y demos",
       "items": [
@@ -224,7 +224,7 @@
           "indev": true,
           "route": "/tutorgo.png",
           "title": "TutorGo, una herramienta para tutores particulares y profesionales",
-          "icon": "👨🏻‍🏫",
+          "icon": "",
           "technologies": [
             "devicon-react-original",
             "devicon-nodejs-plain",
@@ -251,7 +251,7 @@
         {
           "route": "/pinpoint.png",
           "title": "Pinpoint, la plataforma de eventos gratuita",
-          "icon": "🗺️",
+          "icon": "",
           "technologies": [
             "devicon-react-original",
             "devicon-nodejs-plain",
@@ -276,7 +276,7 @@
         {
           "route": "/gol.png",
           "title": "Varios juegos y proyectos pequeños",
-          "icon": "🎮",
+          "icon": "",
           "technologies": [
             "devicon-nodejs-plain",
             "devicon-html5-plain",
@@ -302,7 +302,7 @@
           "indev": true,
           "route": "/ude/first.png",
           "title": "Up And Down English",
-          "icon": "🗽",
+          "icon": "",
           "technologies": [
             "devicon-react-original",
             "devicon-nodejs-plain",
@@ -327,7 +327,7 @@
         {
           "route": "/blog/hands.png",
           "title": "Proyectos de Visión por computador y Machine Learning",
-          "icon": "🤖",
+          "icon": "",
           "technologies": [
             "devicon-python-plain",
             "devicon-opencv-plain",
@@ -351,7 +351,7 @@
           "indev": true,
           "route": "/blog/vocab.png",
           "title": "Vocabulario interactivo con Electron y Tailwind CSS",
-          "icon": "📚",
+          "icon": "",
           "technologies": [
             "devicon-electron-original",
             "devicon-tailwindcss-plain",
@@ -373,7 +373,7 @@
       ]
     },
     "contact": {
-      "title": "☎️ Contacto",
+      "title": "Contacto",
       "message": "Quieres más información o concertar una entrevista o cita personalizada?",
       "cta": "¡No dudes en ponerte en contacto conmigo!",
       "subtitle": "Aquí tienes mis datos de contacto.",
@@ -519,6 +519,6 @@
     ]
   ],
   "blog": {
-    "title": "✒️ ¡Últimas publicaciones!"
+    "title": "¡Últimas publicaciones!"
   }
 }

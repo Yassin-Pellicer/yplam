@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 import { Carousel } from "../carousel";
+import { User } from "lucide-react";
 
 export const About = () => {
   const { t } = useTranslation();
@@ -15,23 +16,23 @@ export const About = () => {
   }
 
   const items = t("carousel.items", { returnObjects: true }) as Array<{
-    emoji: string;
+    icon: string;
     title: string;
     subtitle: string;
   }>;
 
   return (
-    <section id="0" className="py-10">
+    <section id="0" className="py-10 w-full rounded-2xl">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-5xl font-bold text-white mb-4 tracking-tighter">
-          {t("sections.about.title")}
+        <h2 className="flex flex-row gap-4 text-5xl font-bold text-foreground! tracking-tighter items-center">
+          <User size={42}></User>{t("sections.about.title")}
         </h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <p className="text-xl text-white">
+            <p className="text-xl text-foreground!">
               {t("sections.about.description")}
             </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
+            <p className="text-lg text-foreground/60 leading-relaxed">
               {t("sections.about.personal")}
             </p>
           </div>

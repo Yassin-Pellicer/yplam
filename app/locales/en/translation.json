@@ -12,39 +12,39 @@
   "hero": {
     "greeting": "Hello, my name is...",
     "title": "Software Developer | Graduated in Computer Science by the UPV",
-    "subtitle": "Specialized in computer science 🤖",
+    "subtitle": "Specialized in computer science",
     "cta": "More information"
   },
   "carousel": {
-    "dev": " In development! 🚀",
+    "dev": " In development!",
     "items": [
       {
-        "emoji": "💯",
+        "icon": "Award",
         "title": "Notable academic record",
         "subtitle": "Average of 7.7 in a English-taught curriculum."
       },
       {
-        "emoji": "💼",
+        "icon": "BriefcaseBusiness",
         "title": "+2 Years of Experience in IT",
         "subtitle": "Front-end, back-end and QA development with recent technologies."
       },
       {
-        "emoji": "🌍",
+        "icon": "Globe2",
         "title": "Welche Sprachen sprechen Sie?",
         "subtitle": "Fluent in English, B1 in French, and basic knowledge in German. Native Spanish and Valencian."
       },
       {
-        "emoji": "🎓",
+        "icon": "GraduationCap",
         "title": "Graduated with Honors",
         "subtitle": "Computer Science UPV - English-taught curriculum (High Academic Achievement)."
       },
       {
-        "emoji": "✨",
+        "icon": "Sparkles",
         "title": "+1 Year of experience in full-stack development",
         "subtitle": "And every day I keep learning."
       },
       {
-        "emoji": "🗒️",
+        "icon": "BookText",
         "title": "Blog where I document my learning",
         "subtitle": "I'll publish my first post soon!",
         "incoming": true
@@ -53,13 +53,13 @@
   },
   "sections": {
     "about": {
-      "title": "About Me 🤔",
+      "title": "About Me ",
       "description": "Graduated in Computer Science by the UPV, seeking to grow as a professional in the field of software development and front-end and back-end technologies. Related to frameworks like Next, Angular and front-end libraries (React). Worked with back-end frameworks in PHP (Symphony) in projects focused on retail and transaction monitoring in large surfaces.",
       "personal": "When I'm not programming, I like to go to the gym, play video games (especially strategy ones) or listen to music."
     },
     "experience": {
-      "title": "💼 Experience",
-      "openToWork": "Open to Work! 😊",
+      "title": "Experience",
+      "openToWork": "Open to Work!",
       "experiences": [
         {
           "id": 4,
@@ -121,7 +121,7 @@
       ]
     },
     "skills": {
-      "title": "✨ Skills",
+      "title": "Skills",
       "items": [
         {
           "name": "Frontend Development",
@@ -189,7 +189,7 @@
       ]
     },
     "certifications": {
-      "title": "🎖️ Certifications",
+      "title": "Certifications",
       "items": [
         {
           "id": 1,
@@ -213,11 +213,11 @@
       "cta": "Certificate available"
     },
     "projects": {
-      "title": "💻 Projects",
+      "title": "Projects",
       "viewCode": "View code",
       "developedIn": "",
-      "inDevelopment": "Currently in development! 🚀",
-      "comingSoon": "Coming soon! 🚀",
+      "inDevelopment": "Currently in development!",
+      "comingSoon": "Coming soon!",
       "about": "About the project",
       "gallery": "Gallery and demos",
       "items": [
@@ -374,7 +374,7 @@
       ]
     },
     "contact": {
-      "title": "☎️ Contact",
+      "title": "Contact",
       "message": "Want more information or schedule an interview or personalized meeting?",
       "cta": "Don't hesitate to contact me!",
       "subtitle": "Here are my contact details.",

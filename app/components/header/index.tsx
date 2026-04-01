@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter, usePathname } from "next/navigation";
+import { ThemeToggle } from "../theme-toggle";
 
 export const Header = ({ style = "" }: { style?: string }) => {
   const { i18n, t } = useTranslation();
@@ -21,32 +22,48 @@ export const Header = ({ style = "" }: { style?: string }) => {
   }, []);
 
   const scrollToSection = (section: string) => {
-    if (section === "5") {
-      router.push("/blog");
-    } else if (pathname !== "/" && section !== "blog") {
-      router.push("/")
-      setTimeout(() => document.getElementById(section)?.scrollIntoView({ behavior: "smooth" }), 400);
+    const blogSectionId = String(sections.length - 1);
+
+    if (section === blogSectionId) {
+      if (pathname !== "/blog") {
+        router.push("/blog");
+      }
+      setMenuOverlay(false);
+      return;
     }
+
+    if (pathname !== "/") {
+      router.push("/");
+      setTimeout(
+        () => document.getElementById(section)?.scrollIntoView({ behavior: "smooth" }),
+        400
+      );
+      setMenuOverlay(false);
+      return;
+    }
+
     document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
     setMenuOverlay(false);
   };
 
+  const isSolidHeader = style === "black" || isScrolled;
+
   return (
     <>
       <header
-        className={`flex fixed top-0 w-full justify-between items-center align-center h-14! z-50 transition-all duration-300 px-4 py-3 sm:px-8  
+        className={`flex fixed top-0 w-full justify-between items-center align-center h-14! z-50 transition-all duration-300 px-4 py-3 sm:px-8 border-b
     ${style === "black"
-            ? "bg-white text-black border-b border-gray-200"
+            ? "bg-card/95 backdrop-blur-md text-foreground! border-border shadow-sm"
             : isScrolled
-              ? "bg-black/20 backdrop-blur-sm text-white border-white/20"
-              : "bg-transparent text-white border-transparent"
+              ? "bg-background/85 backdrop-blur-md text-foreground! border-border"
+              : "bg-transparent text-foreground! border-transparent"
           }`}
       >
         <img
           src="/yo.jpg"
           alt="Logo"
           onClick={() => router.push("/")}
-          className={`h-8 w-8 rounded-full sm:h-8 sm:w-8 transition-opacity duration-300 ${isScrolled ? "opacity-100" : "opacity-0"
+          className={`h-8 w-8 rounded-full sm:h-8 sm:w-8 transition-opacity duration-300 cursor-pointer ${isSolidHeader ? "opacity-100" : "opacity-0"
             }`}
         />
         <nav className="hidden lg:flex gap-8 items-center">
@@ -54,7 +71,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
             <button
               key={`${section}-${index}`}
               onClick={() => { scrollToSection(index.toString()); }}
-              className={`px-4 py-2 hover:text-white hover:bg-blue-400 hover:cursor-pointer rounded-2xl transition-colors`}
+              className="px-4 py-2 rounded-2xl transition-colors text-foreground! hover:bg-secondary hover:text-foreground! hover:cursor-pointer"
             >
               {section}
             </button>
@@ -64,16 +81,18 @@ export const Header = ({ style = "" }: { style?: string }) => {
             onClick={() =>
               i18n.changeLanguage(i18n.language === "es" ? "en" : "es")
             }
-            className="material-symbols-outlined hover:cursor-pointer"
+            className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors hover:cursor-pointer text-foreground!"
+            aria-label="Change language"
           >
             translate
           </button>
+          <ThemeToggle />
         </nav>
 
         <div className="lg:hidden flex items-center">
           <span
-            className="material-symbols-outlined hover:cursor-pointer"
-            style={{ fontSize: "28px", color: style === "black" ? "black" : "white" }}
+            className="material-symbols-outlined hover:cursor-pointer text-foreground! rounded-full p-1 hover:bg-secondary transition-colors"
+            style={{ fontSize: "28px" }}
             onClick={() => setMenuOverlay(!menuOverlay)}
           >
             menu
@@ -83,33 +102,45 @@ export const Header = ({ style = "" }: { style?: string }) => {
 
       {menuOverlay && (
         <div
-          className="fixed top-0 left-0 w-full h-screen pt-4 bg-black/50 backdrop-blur-sm z-40"
+          className="fixed top-0 left-0 w-full h-screen pt-4 bg-background/85 backdrop-blur-md z-40"
           onClick={() => setMenuOverlay(false)}
         >
           <div
             className="flex flex-col h-full overflow-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex flex-col mt-10 divide-y border-t border-white/50 divide-white/50">
+            <div className="flex items-center justify-between px-4 pt-2 pb-4 border-b border-border">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    i18n.changeLanguage(i18n.language === "es" ? "en" : "es")
+                  }
+                  className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors hover:cursor-pointer text-foreground!"
+                  aria-label="Change language"
+                >
+                  translate
+                </button>
+                <ThemeToggle />
+              </div>
+              <button
+                onClick={() => setMenuOverlay(false)}
+                className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors text-foreground!"
+                aria-label="Close menu"
+              >
+                close
+              </button>
+            </div>
+            <div className="flex flex-col mt-10 divide-y border-t border-border divide-border">
               {sections.map((section, index) => (
                 <button
                   key={`${section}-${index}`}
                   onClick={() => scrollToSection(index.toString())}
-                  className="text-white text-2xl text-right py-4 px-4 hover:bg-white/20 transition-colors"
+                  className="text-foreground! text-2xl text-right py-4 px-4 hover:bg-secondary transition-colors"
                 >
                   {section}
                 </button>
               ))}
 
-              <button
-                onClick={() =>
-                  i18n.changeLanguage(i18n.language === "es" ? "en" : "es")
-                }
-                className="material-symbols-outlined text-right px-4 border-b-[1px] border-white/50 pb-5 text-2xl mt-4"
-                style={{ color: "white" }}
-              >
-                translate
-              </button>
             </div>
           </div>
         </div>
@@ -117,4 +148,3 @@ export const Header = ({ style = "" }: { style?: string }) => {
     </>
   );
 };
-

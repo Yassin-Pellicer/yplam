@@ -38,7 +38,7 @@ export default function Portfolio() {
                       alt="Profile"
                       className="w-20 h-20 rounded-full border-white object-cover"
                     />
-                    <b className="mt-2 text-lg text-gray-800">Yassin Pellicer Lamla</b>
+                    <b className="mt-2 text-lg text-foreground">Yassin Pellicer Lamla</b>
                     <p className="text-sm text-gray-800">
                       Software Engineer | Especializado en Ciencias de la Computación
                     </p>
@@ -52,7 +52,7 @@ export default function Portfolio() {
                         rel="noopener noreferrer"
                         className="p-2 bg-blue-500 rounded-full hover:bg-blue-600 transition-all hover:scale-110"
                       >
-                        <Github className="w-4 h-4 text-white" />
+                        <Github className="w-4 h-4 text-foreground!" />
                       </a>
                       <a
                         href="https://www.linkedin.com/in/yassin-pellicer/"
@@ -60,7 +60,7 @@ export default function Portfolio() {
                         rel="noopener noreferrer"
                         className="p-2 bg-blue-500 rounded-full hover:bg-blue-600 transition-all hover:scale-110"
                       >
-                        <Linkedin className="w-4 h-4 text-white" />
+                        <Linkedin className="w-4 h-4 text-foreground!" />
                       </a>
                       <a
                         href="mailto:yassinpellicerlamla@gmail.com"
@@ -68,7 +68,7 @@ export default function Portfolio() {
                         rel="noopener noreferrer"
                         className="p-2 bg-blue-500 rounded-full hover:bg-blue-600 transition-all hover:scale-110"
                       >
-                        <Mail className="w-4 h-4 text-white" />
+                        <Mail className="w-4 h-4 text-foreground!" />
                       </a>
                     </div>
                   </div>
@@ -99,7 +99,7 @@ export default function Portfolio() {
                                     {searchContext.tags?.map((tag: string, i: number) => (
                                       <span
                                         key={i}
-                                        className="bg-blue-700/60 text-xs text-white px-2 h-fit py-0.5 rounded-full"
+                                        className="bg-blue-700/60 text-xs text-foreground! px-2 h-fit py-0.5 rounded-full"
                                       >
                                         #{tag}
                                       </span>
@@ -138,7 +138,7 @@ export default function Portfolio() {
                                         {post.tags.map((tag: string, i: number) => (
                                           <span
                                             key={i}
-                                            className="bg-blue-700/60 text-xs text-white px-2 h-fit py-0.5 rounded-full"
+                                            className="bg-blue-700/60 text-xs text-foreground! px-2 h-fit py-0.5 rounded-full"
                                           >
                                             #{tag}
                                           </span>

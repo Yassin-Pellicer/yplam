@@ -1,96 +1,111 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { BadgeCheck, Wrench } from "lucide-react";
 
 export const AbsCerts = () => {
-
   const { t } = useTranslation();
 
   const rawSkills = t("sections.skills.items", { returnObjects: true });
-  const skills = Array.isArray(rawSkills) ? rawSkills : [] as Array<{ id: number; name: string; icon: string, level: string, description: string, color: string }>;
+  const skills = (Array.isArray(rawSkills) ? rawSkills : []) as Array<{
+    id: number;
+    name: string;
+    icon: string;
+    level: string;
+    description: string;
+    color: string;
+  }>;
+
   const rawCerts = t("sections.certifications.items", { returnObjects: true });
-  const certs = Array.isArray(rawCerts) ? rawCerts : [] as Array<{ id: number; name: string; icon: string, level: string, description: string, color: string, link: string, platform: string, date: string }>;
+  const certs = (Array.isArray(rawCerts) ? rawCerts : []) as Array<{
+    id: number;
+    name: string;
+    icon: string;
+    level: string;
+    description: string;
+    color: string;
+    link: string;
+    platform: string;
+    date: string;
+  }>;
 
   return (
     <>
-      <section
-        id="2"
-        className="flex-col sm:pt-10 pt-8 sm:pb-0! pb-8"
-      >
-        <h2 className="sm:text-5xl text-4xl font-bold text-white tracking-tighter mb-6">
+      <section id="2" className="flex-col">
+        <h2 className="sm:text-5xl text-4xl font-bold text-foreground! tracking-tighter mb-6 flex items-center gap-4">
+          <Wrench size={42} strokeWidth={1.2} />
           {t("sections.skills.title")}
         </h2>
-        <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-4">
           {skills.map((skill, index) => {
             return (
               <div
                 key={index}
-                className={`${skill.color} backdrop-blur-md rounded-2xl sm:p-6 p-4 border border-white/10 hover:shadow-md transition-all duration-200`}
+                className="bg-card rounded-2xl sm:p-6 p-4 border border-border hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
-                <div className="flex flex-col sm:mb-4 mb-2">
-                  <div className="flex flex-row items-center gap-2 mb-2 flex-wrap">
-                    <i className={`${skill.icon} text-white text-3xl`}></i>
-                    <h3 className="sm:text-xl font-bold sm:mb-2 mb-0 text-white">
-                      {skill.name}
-                    </h3>
+                <div className="flex h-full flex-col justify-between gap-4">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-row items-center gap-2 flex-wrap">
+                      <i className={`${skill.icon} text-foreground! text-3xl`}></i>
+                      <h3 className="sm:text-xl font-bold text-foreground! tracking-tight">
+                        {skill.name}
+                      </h3>
+                    </div>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      {skill.description}
+                    </p>
                   </div>
-                  <h3 className="text-xs sm:text-lg text-white">
-                    {skill.description}
-                  </h3>
+                  <span className="bg-secondary/40 text-secondary-foreground text-xs sm:text-sm rounded-full py-1.5 px-3 flex w-fit">
+                    {skill.level}
+                  </span>
                 </div>
-                <span
-                  className={`bg-white/10 backdrop-blur-md sm:text-sm rounded-full py-1 px-2 flex text-white text-xs w-fit sm:px-4 sm:py-2`}
-                >
-                  {skill.level}
-                </span>
               </div>
             );
           })}
         </div>
       </section>
 
-      <section id="habilidades" className="flex-col sm:py-10">
-        <h2 className="sm:text-5xl text-4xl font-bold text-white tracking-tighter mb-6">
+      <section id="habilidades" className="flex-col sm:py-10 py-8">
+        <h2 className="sm:text-5xl text-4xl font-bold text-foreground! tracking-tighter mb-6 flex items-center gap-4">
+          <BadgeCheck size={42} strokeWidth={1.2} />
           {t("sections.certifications.title")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           {certs.map((skill, index) => {
             return (
-              <div
+              <a
                 key={index}
-                className="backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:scale-[1.02] hover:shadow-md transition-all duration-200 hover:cursor-pointer bg-white/20 text-white"
-                onClick={() => window.open(skill.link, "_blank")}
+                href={skill.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative rounded-2xl p-6 border border-border hover:scale-[1.01] hover:shadow-md transition-all duration-200 bg-card text-foreground! block"
               >
-                <div className="flex flex-col mb-4">
-                  <div className="flex flex-row items-center gap-4 mb-2">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-row items-center gap-3">
                     <i className={`${skill.icon} text-3xl`}></i>
-                    <h3 className="text-xl font-bold mb-2">
+                    <h3 className="text-xl font-bold tracking-tight">
                       {skill.name}
                     </h3>
                   </div>
-                  <div className="flex flex-row justify-between items-center gap-4 mb-2">
-                    <h3 className="text-xl font-bold mb-2 ">
-                      🏫 {skill.platform}
-                    </h3>
-                    <h3 className="text-xl font-bold mb-2 ">
-                      🗓️ {skill.date}
-                    </h3>
+                  <div className="flex flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+                    <p className="font-semibold">🏫 {skill.platform}</p>
+                    <p className="font-semibold">🗓️ {skill.date}</p>
                   </div>
-                  <h3 className="text-md mb-10">
+                  <p className="text-sm sm:text-base leading-relaxed text-muted-foreground pb-14">
                     {skill.description}
-                  </h3>
+                  </p>
                 </div>
-                <div className="absolute bottom-6 left-6 flex flex-row items-center justify-center gap-2 bg-green-100 w-fit rounded-full px-3 py-2 text-black font-bold tracking-tighter border-2 border-green-500">
-                  <div className="relative h-4 w-4 rounded-full bg-green-500 animate-pulse">
-                    <div className="absolute h-4 w-4 rounded-full bg-green-500 animate-[ping_0.75s_infinite]"></div>
+                <div className="absolute bottom-5 left-6 flex flex-row items-center justify-center gap-2 bg-secondary/40 w-fit rounded-full px-3 py-1.5 text-secondary-foreground font-bold text-xs sm:text-sm tracking-tight border border-border">
+                  <div className="relative h-3 w-3 rounded-full bg-primary animate-pulse">
+                    <div className="absolute h-3 w-3 rounded-full bg-primary animate-[ping_0.75s_infinite]"></div>
                   </div>
-                  Certificado disponible{" "}
+                  {t("sections.certifications.cta")}
                   <span
                     className="material-symbols-outlined"
-                    style={{ fontSize: "18px" }}
+                    style={{ fontSize: "16px" }}
                   >
                     open_in_new
                   </span>
                 </div>
-              </div>
+              </a>
             );
           })}
         </div>

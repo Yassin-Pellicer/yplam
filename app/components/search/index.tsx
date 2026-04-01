@@ -13,7 +13,7 @@ export default function Search() {
     <div className="bg-white border-b border-gray-300">
       <div className="px-4 py-3">
         <div className="flex items-center justify-between flex-wrap gap-3">
-          <h1 className="md:text-2xl text-xl font-bold tracking-tighter text-black">
+          <h1 className="md:text-2xl text-xl font-bold tracking-tighter text-foreground!">
             {t("blog.title")} 
           </h1>
         </div>
