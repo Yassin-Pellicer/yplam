@@ -53,7 +53,7 @@ export const AbsCerts = () => {
                       {skill.description}
                     </p>
                   </div>
-                  <span className="bg-secondary/40 text-secondary-foreground text-xs sm:text-sm rounded-full py-1.5 px-3 flex w-fit">
+                  <span className="bg-secondary/10/40 text-secondary-foreground text-xs sm:text-sm rounded-full py-1.5 px-3 flex w-fit">
                     {skill.level}
                   </span>
                 </div>
@@ -93,7 +93,7 @@ export const AbsCerts = () => {
                     {skill.description}
                   </p>
                 </div>
-                <div className="absolute bottom-5 left-6 flex flex-row items-center justify-center gap-2 bg-secondary/40 w-fit rounded-full px-3 py-1.5 text-secondary-foreground font-bold text-xs sm:text-sm tracking-tight border border-border">
+                <div className="absolute bottom-5 left-6 flex flex-row items-center justify-center gap-2 bg-secondary/10/40 w-fit rounded-full px-3 py-1.5 text-secondary-foreground font-bold text-xs sm:text-sm tracking-tight border border-border">
                   <div className="relative h-3 w-3 rounded-full bg-primary animate-pulse">
                     <div className="absolute h-3 w-3 rounded-full bg-primary animate-[ping_0.75s_infinite]"></div>
                   </div>

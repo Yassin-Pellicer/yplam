@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import i18next from "i18next";
-import { stat } from "fs";
 
 type SearchResult = {
   id: string;
@@ -71,8 +70,8 @@ export const useSearchStore = create<SearchState>((set, get) => {
 
         const newTechnologies = exists
           ? state.technologies.filter(
-            (t) => !(t[0] === technology[0] && t[1] === technology[1])
-          )
+              (t) => !(t[0] === technology[0] && t[1] === technology[1])
+            )
           : [...state.technologies, technology];
 
         return { technologies: newTechnologies };
@@ -98,9 +97,8 @@ export const useSearchStore = create<SearchState>((set, get) => {
         const results = [...state.searchResults].sort((a, b) => {
           if (key === "Oldest") {
             return new Date(a.date).getTime() - new Date(b.date).getTime();
-          } else {
-            return new Date(b.date).getTime() - new Date(a.date).getTime();
           }
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
         return { sortBy: key, searchResults: results };
       });
@@ -125,14 +123,14 @@ export const useSearchStore = create<SearchState>((set, get) => {
           state.searchTerm === ""
             ? allPosts
             : allPosts.filter(
-              (result) =>
-                result.title
-                  .toLowerCase()
-                  .includes(state.searchTerm.toLowerCase()) ||
-                result.excerpt
-                  .toLowerCase()
-                  .includes(state.searchTerm.toLowerCase())
-            ),
+                (result) =>
+                  result.title
+                    .toLowerCase()
+                    .includes(state.searchTerm.toLowerCase()) ||
+                  result.excerpt
+                    .toLowerCase()
+                    .includes(state.searchTerm.toLowerCase())
+              ),
       }));
     },
 
@@ -146,26 +144,23 @@ export const useSearchStore = create<SearchState>((set, get) => {
           );
         }
 
-   if (state.technologies.length > 0) {
+        if (state.technologies.length > 0) {
           filtered = filtered.filter((post) =>
             state.technologies.every((selectedTech) =>
-              post.technologies.some((postTech) => 
-                postTech === selectedTech[0]
-              )
+              post.technologies.some((postTech) => postTech === selectedTech[0])
             )
           );
         }
 
-        console.log(state.technologies)
-        console.log(filtered)
-        console.log(state.allPosts)
-
-        // Filter by search term
         if (state.searchTerm.trim() !== "") {
           filtered = filtered.filter(
             (result) =>
-              result.title.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-              result.excerpt.toLowerCase().includes(state.searchTerm.toLowerCase())
+              result.title
+                .toLowerCase()
+                .includes(state.searchTerm.toLowerCase()) ||
+              result.excerpt
+                .toLowerCase()
+                .includes(state.searchTerm.toLowerCase())
           );
         }
 

@@ -1,25 +1,15 @@
 import { useTranslation } from "next-i18next";
-import { useEffect, useState } from "react";
-import { useSearchStore } from "./context";
+import { useMemo } from "react";
 
 export default function useSearch() {
-  const [total, setTotal] = useState<String>("0");
-  const searchStore = useSearchStore();
-
   const { t } = useTranslation();
-  
-  const value = t("postCounter")
 
-  useEffect(() => {
-    setTotal(value);
-  }, []);
-
-  useEffect(() => {
-    
-  }, [searchStore.searchTerm])
+  const total = useMemo(() => {
+    const value = t("postCounter");
+    return typeof value === "number" ? String(value) : String(value ?? "0");
+  }, [t]);
 
   return {
-    total
-  }
-
+    total,
+  };
 }

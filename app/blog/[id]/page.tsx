@@ -2,7 +2,7 @@
 
 import "../../lib/18n";
 import "devicon/devicon.min.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useTranslation } from "next-i18next";
 import { Header } from "@/app/components/header";
@@ -11,140 +11,139 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
-import { InViewSection } from "@/app/components/motion";
+import { ArrowLeft, BookOpenText } from "lucide-react";
 
-export default function Portfolio() {
+type Post = {
+  id: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  link?: string;
+  tags: string[];
+  image: string;
+  technologies: string[];
+};
+
+export default function BlogPostPage() {
   const { t, i18n } = useTranslation();
-
   const router = useRouter();
   const params = useParams();
 
-  const id = params.id;
+  const rawId = params?.id;
+  const postId = useMemo(() => {
+    if (Array.isArray(rawId)) return rawId[0];
+    return rawId as string | undefined;
+  }, [rawId]);
 
   const [markdown, setMarkdown] = useState("");
-  const [post, setPost] = useState<{
-    id: string;
-    title: string;
-    date: string;
-    excerpt: string;
-    link: string;
-    tags: string[];
-    image: string;
-    technologies: string[];
-  } | null>(null);
+  const [post, setPost] = useState<Post | null>(null);
+  const [resolvedMarkdownId, setResolvedMarkdownId] = useState<string>("");
 
   useEffect(() => {
-    console.log(id);
-    if (!id) return;
-    const post = t(`posts.${id}`, { returnObjects: true }) as {
-      id: string;
-      title: string;
-      date: string;
-      excerpt: string;
-      link: string;
-      tags: string[];
-      image: string;
-      technologies: string[];
-    };
-    setPost(post);
-  }, [id, t]);
+    if (!postId) return;
+    const posts = t("posts", { returnObjects: true }) as Record<string, Post>;
+    const normalizedPostId = String(postId).replace(/^\/+|\/+$/g, "");
+
+    const direct = posts?.[normalizedPostId];
+
+    const byId = Object.values(posts ?? {}).find(
+      (candidate) => candidate?.id === normalizedPostId
+    );
+
+    const byLink = Object.values(posts ?? {}).find((candidate) => {
+      const slug = candidate?.link?.replace(/^\/blog\//, "").replace(/^\/+|\/+$/g, "");
+      return slug === normalizedPostId;
+    });
+
+    const nextPost = direct ?? byId ?? byLink ?? null;
+    setPost(nextPost);
+    setResolvedMarkdownId(nextPost?.id ?? normalizedPostId);
+  }, [postId, t]);
 
   useEffect(() => {
-    console.log(`fetching /markdown/${i18n.language}/${id}.md`);
-    fetch(`/markdown/${i18n.language}/${id}.md`)
+    if (!resolvedMarkdownId) return;
+    fetch(`/markdown/${i18n.language}/${resolvedMarkdownId}.md`)
       .then((res) => res.text())
-      .then((text) => setMarkdown(text));
-  }, [id, i18n.language]);
+      .then((text) => setMarkdown(text))
+      .catch(() => setMarkdown(""));
+  }, [resolvedMarkdownId, i18n.language]);
 
   if (!post) {
-    return <div className="flex justify-center flex-col items-center bg-white select-none"></div>;
+    return (
+      <div className="dotted-bg select-none min-h-screen w-full flex flex-col">
+        <Header style="black" />
+      </div>
+    );
   }
 
-  return (
-    <div className="flex justify-center flex-col items-center bg-[#f5f5f5] select-none">
-      <section className="flex flex-col h-full items-center min-h-screen">
-        <Header style="black" />
-        <div className="sm:pt-14 h-full pt-12">
-          <div className="w-full bg-white">
-            <div className="flex md:flex-row flex-col w-full max-w-[1000px] mx-auto">
-              <InViewSection>
-                <div className="w-full">
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-max-[1200px] w-full h-fit">
-                      <article className="flex flex-col bg-white text-gray-800 backdrop-blur-md tracking-tight border-x border-gray-300">
-                        <button
-                          onClick={() => router.push("/blog")}
-                          className="absolute top-4 left-4"
-                        >
-                          <span className="hover:cursor-pointer material-symbols-outlined bg-white rounded-full p-1 hover:bg-blue-600 hover:text-foreground! transition duration-100" style={{ fontSize: "24px" }}>
-                            arrow_back
-                          </span>
-                        </button>
-                        {post.image && <img src={post.image} className=" object-cover border-b border-gray-300 max-h-[500px]"></img>}
-                        <div className="flex flex-col justify-between px-4 py-2 h-full">
-                          <div>
-                            <h3 className="text-3xl mt-2 tracking-tighter font-bold mb-2">
-                              {post.title}
-                            </h3>
-                            <p className="text-sm tracking-tight mb-4">{post.excerpt}</p>
-                            <div className="flex flex-wrap gap-1 mb-4">
-                              <div className="flex flex-row items-center align-center w-full justify-between">
-                                <div className="flex items-center align-center flex-wrap gap-1">
-                                  {post.tags.map((tag: string, i: number) => (
-                                    <span
-                                      key={i}
-                                      className="bg-blue-700/60 text-xs text-foreground! px-2 h-fit py-0.5 rounded-full"
-                                    >
-                                      #{tag}
-                                    </span>
-                                  ))}
-                                </div>
-                                <div className="flex flex-wrap gap-1">
-                                  {post.technologies.map((tag: string, i: number) => (
-                                    <span
-                                      key={i}
-                                      className={`${tag}  text-xl text-gray-600 rounded-full`}
-                                    >
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex flex-row items-center justify-between mt-auto">
-                            <p className="flex items-center gap-1 text-xs ">
-                              <span
-                                className="material-symbols-outlined"
-                                style={{ fontSize: "16px" }}
-                              >
-                                calendar_month
-                              </span>
-                              {new Date(post.date).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              })}
-                            </p>
-                          </div>
-                        </div>
+  const dateLocale = i18n.language?.startsWith("es") ? "es-ES" : "en-US";
 
-                        {markdown && (
-                          <div className="markdown px-4 border-t mt-4 mb-8 border-gray-300">
-                            <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeHighlight]}>
-                              {markdown}
-                            </ReactMarkdown>
-                          </div>
-                        )}
-                      </article>
-                    </div>
+  return (
+    <div className="dotted-bg select-none min-h-screen w-full flex flex-col">
+      <section className="flex flex-col items-center w-full flex-1">
+        <Header style="black" />
+
+        <div className="w-full border-b border-foreground/10 px-4 sm:px-12 pt-16 pb-8 flex-1">
+          <div className="mx-auto w-full max-w-4xl border-x border-foreground/10 bg-background px-4 sm:px-8 py-8 min-h-full">
+            <article className="flex flex-col rounded-2xl border border-border bg-card overflow-hidden">
+              <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-border">
+                <button
+                  onClick={() => router.push("/blog")}
+                  className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/10 text-secondary-foreground px-3 py-1.5 hover:bg-accent transition-colors"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {i18n.language?.startsWith("es") ? "Volver" : "Back"}
+                </button>
+                <div className="inline-flex items-center gap-2 text-muted-foreground text-sm">
+                  <BookOpenText className="h-4 w-4" />
+                  {new Date(post.date).toLocaleDateString(dateLocale, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </div>
+              </div>
+
+              {post.image && (
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="object-cover border-b border-border max-h-[420px] w-full"
+                />
+              )}
+
+              <div className="px-4 sm:px-6 py-5 border-b border-border">
+                <h1 className="text-3xl tracking-tight font-bold mb-3 text-foreground!">{post.title}</h1>
+                <p className="text-sm tracking-tight text-muted-foreground mb-4">{post.excerpt}</p>
+                <div className="flex flex-wrap gap-2 items-center justify-between">
+                  <div className="flex items-center flex-wrap gap-1">
+                    {post.tags.map((tag: string, i: number) => (
+                      <span
+                        key={i}
+                        className="bg-secondary/10 text-secondary-foreground text-xs px-2 h-fit py-0.5 rounded-full"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {post.technologies.map((tech: string, i: number) => (
+                      <span key={i} className={`${tech} text-xl text-muted-foreground rounded-full`}></span>
+                    ))}
                   </div>
                 </div>
-              </InViewSection>
-            </div>
+              </div>
+
+              {markdown && (
+                <div className="markdown px-4 sm:px-6 py-6 text-foreground!">
+                  <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeHighlight]}>{markdown}</ReactMarkdown>
+                </div>
+              )}
+            </article>
           </div>
         </div>
       </section>
-      <Footer style={"black"} />
+      <Footer style="black" />
     </div>
   );
 }

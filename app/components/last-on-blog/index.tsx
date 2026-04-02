@@ -64,7 +64,7 @@ export const LatestOnBlog = () => {
                   {(post.tags ?? []).map((tag: string, i: number) => (
                     <span
                       key={i}
-                      className="bg-secondary text-secondary-foreground text-xs px-2 h-fit py-0.5 rounded-full"
+                      className="bg-secondary/10 text-secondary-foreground text-xs px-2 h-fit py-0.5 rounded-full"
                     >
                       #{tag}
                     </span>

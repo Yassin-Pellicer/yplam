@@ -71,7 +71,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
             <button
               key={`${section}-${index}`}
               onClick={() => { scrollToSection(index.toString()); }}
-              className="px-4 py-2 rounded-2xl transition-colors text-foreground! hover:bg-secondary hover:text-foreground! hover:cursor-pointer"
+              className="px-4 py-2 rounded-2xl transition-colors text-foreground! hover:bg-secondary/10 hover:text-foreground! hover:cursor-pointer"
             >
               {section}
             </button>
@@ -81,7 +81,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
             onClick={() =>
               i18n.changeLanguage(i18n.language === "es" ? "en" : "es")
             }
-            className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors hover:cursor-pointer text-foreground!"
+            className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary/10 transition-colors hover:cursor-pointer text-foreground!"
             aria-label="Change language"
           >
             translate
@@ -91,7 +91,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
 
         <div className="lg:hidden flex items-center">
           <span
-            className="material-symbols-outlined hover:cursor-pointer text-foreground! rounded-full p-1 hover:bg-secondary transition-colors"
+            className="material-symbols-outlined hover:cursor-pointer text-foreground! rounded-full p-1 hover:bg-secondary/10 transition-colors"
             style={{ fontSize: "28px" }}
             onClick={() => setMenuOverlay(!menuOverlay)}
           >
@@ -115,7 +115,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
                   onClick={() =>
                     i18n.changeLanguage(i18n.language === "es" ? "en" : "es")
                   }
-                  className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary/50 transition-colors hover:cursor-pointer text-foreground!"
+                  className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary/10/50 transition-colors hover:cursor-pointer text-foreground!"
                   aria-label="Change language"
                 >
                   translate
@@ -124,7 +124,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
               </div>
               <button
                 onClick={() => setMenuOverlay(false)}
-                className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary/50 transition-colors text-foreground!"
+                className="material-symbols-outlined h-10 w-10 rounded-full flex items-center justify-center hover:bg-secondary/10/50 transition-colors text-foreground!"
                 aria-label="Close menu"
               >
                 close
@@ -135,7 +135,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
                 <button
                   key={`${section}-${index}`}
                   onClick={() => scrollToSection(index.toString())}
-                  className="text-foreground! text-lg text-left py-4 px-5 font-semibold hover:bg-secondary/40 transition-colors"
+                  className="text-foreground! text-lg text-left py-4 px-5 font-semibold hover:bg-secondary/10/40 transition-colors"
                 >
                   {section}
                 </button>

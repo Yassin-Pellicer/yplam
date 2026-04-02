@@ -10,11 +10,10 @@ export default function FilterMenu() {
 
   const searchContext = useSearchStore();
 
-  const { t } = useTranslation();
-  const allTags = t("allTags", { returnObjects: true }) as Array<string>;
-  const allTechnologies = t("allTechnologies", {
-    returnObjects: true,
-  }) as Array<[string, string]>;
+  const { t, i18n } = useTranslation();
+  const allTags = t("allTags", { returnObjects: true }) as string[];
+  const allTechnologies = t("allTechnologies", { returnObjects: true }) as [string, string][];
+  const isSpanish = i18n.language?.startsWith("es");
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -47,47 +46,42 @@ export default function FilterMenu() {
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center px-2 py-0.5 border rounded text-sm hover:bg-gray-50 transition-colors ${
+        className={`flex items-center px-2 py-1 border rounded text-sm transition-colors ${
           hasActiveFilters
-            ? "border-blue-500 bg-blue-50 text-blue-700"
-            : "border-gray-300 text-gray-600"
+            ? "border-primary bg-primary/10 text-primary"
+            : "border-border text-muted-foreground hover:bg-secondary/10/40"
         }`}
       >
         <Filter className="w-4 h-4 mr-1" />
-        Filter
+        {isSpanish ? "Filtros" : "Filter"}
         {activeFiltersCount > 0 && (
-          <span className="ml-1 px-1  text-xs bg-blue-600 text-foreground! rounded-full">
+          <span className="ml-1 px-1 text-xs bg-primary text-primary-foreground rounded-full">
             {activeFiltersCount}
           </span>
         )}
-        <ChevronDown
-          className={`w-3 h-3 ml-1 transition-transform ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
+        <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {isOpen && (
         <div
           ref={menuRef}
-          className="absolute left-[-60px] right-0 top-full mt-1 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+          className="absolute right-0 top-full mt-1 w-80 max-w-[calc(100vw-2rem)] bg-card border border-border rounded-lg shadow-lg z-50"
         >
           <div className="p-4">
-            {/* Header */}
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-gray-900">Filters</h3>
+              <h3 className="font-semibold text-foreground!">{isSpanish ? "Filtros" : "Filters"}</h3>
               {hasActiveFilters && (
                 <button
                   onClick={clearAllFilters}
-                  className="text-xs text-blue-600 hover:text-blue-800"
+                  className="text-xs text-primary hover:text-primary/80"
                 >
-                  Clear all
+                  {isSpanish ? "Limpiar" : "Clear all"}
                 </button>
               )}
             </div>
 
             <div className="mb-4">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Tags</h4>
+              <h4 className="text-sm font-medium text-foreground! mb-2">Tags</h4>
               <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
                 {allTags.map((tag) => {
                   const isSelected = searchContext.tags.includes(tag);
@@ -97,8 +91,8 @@ export default function FilterMenu() {
                       onClick={() => searchContext.toggleTag(tag)}
                       className={`inline-flex items-center px-2 py-1 rounded-full text-xs transition-colors ${
                         isSelected
-                          ? "bg-blue-600 text-foreground!"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-secondary/10 text-secondary-foreground hover:bg-accent"
                       }`}
                     >
                       #{tag}
@@ -110,13 +104,13 @@ export default function FilterMenu() {
             </div>
 
             <div className="mb-4">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">
-                Technologies
+              <h4 className="text-sm font-medium text-foreground! mb-2">
+                {isSpanish ? "Tecnologías" : "Technologies"}
               </h4>
               <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
                 {allTechnologies.map((tech) => {
                   const isSelected = searchContext.technologies.some(
-                    (t) => t[0] === tech[0] && t[1] === tech[1]
+                    (selectedTech) => selectedTech[0] === tech[0] && selectedTech[1] === tech[1]
                   );
                   return (
                     <button
@@ -124,8 +118,8 @@ export default function FilterMenu() {
                       onClick={() => searchContext.toggleTechnology(tech)}
                       className={`inline-flex items-center px-2 py-1 rounded text-xs transition-colors ${
                         isSelected
-                          ? "bg-green-600 text-foreground!"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-secondary/10 text-secondary-foreground hover:bg-accent"
                       }`}
                     >
                       <span className={`${tech[0]} text-sm mr-1`}></span>
@@ -138,20 +132,20 @@ export default function FilterMenu() {
             </div>
 
             {hasActiveFilters && (
-              <div className="pt-3 border-t border-gray-200">
-                <h4 className="text-sm font-medium text-gray-700 mb-2">
-                  Active Filters
+              <div className="pt-3 border-t border-border">
+                <h4 className="text-sm font-medium text-foreground! mb-2">
+                  {isSpanish ? "Filtros activos" : "Active Filters"}
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {searchContext.tags.map((tag) => (
                     <span
                       key={`active-tag-${tag}`}
-                      className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"
+                      className="inline-flex items-center px-2 py-1 bg-primary/15 text-primary rounded-full text-xs"
                     >
                       #{tag}
                       <button
                         onClick={() => searchContext.toggleTag(tag)}
-                        className="ml-1 hover:text-blue-600"
+                        className="ml-1 hover:text-primary/80"
                       >
                         <X className="w-3 h-3" />
                       </button>
@@ -159,14 +153,14 @@ export default function FilterMenu() {
                   ))}
                   {searchContext.technologies.map((tech) => (
                     <span
-                      key={`active-tech-${tech[0]}-${tech[1]}`} 
-                      className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 rounded text-xs"
+                      key={`active-tech-${tech[0]}-${tech[1]}`}
+                      className="inline-flex items-center px-2 py-1 bg-secondary/10 text-secondary-foreground rounded text-xs"
                     >
                       <span className={`${tech[0]} text-sm mr-1`}></span>
                       {tech[1]}
                       <button
                         onClick={() => searchContext.toggleTechnology(tech)}
-                        className="ml-1 hover:text-green-600"
+                        className="ml-1 hover:text-foreground!"
                       >
                         <X className="w-3 h-3" />
                       </button>
