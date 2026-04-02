@@ -124,7 +124,7 @@
       "title": "Skills",
       "items": [
         {
-          "name": "Frontend Development",
+          "name": "Frontend",
           "icon": "devicon-react-original",
           "level": "Advanced",
           "description": "Solid experience building interfaces with React and modern frontend technologies.",
@@ -138,14 +138,14 @@
           "color": "bg-green-600"
         },
         {
-          "name": "Backend Development",
+          "name": "Backend",
           "icon": "devicon-nodejs-plain",
           "level": "Advanced",
           "description": "Developing APIs and server-side logic using Node.js and Express.",
           "color": "bg-amber-600"
         },
         {
-          "name": "Database Management",
+          "name": "Databases",
           "icon": "devicon-postgresql-plain",
           "level": "Medium",
           "description": "Managing and designing relational databases with PostgreSQL and MongoDB.",
@@ -171,13 +171,6 @@
           "level": "Advanced",
           "description": "Efficient version control and collaborative work through branches and pull requests.",
           "color": "bg-red-600"
-        },
-        {
-          "name": "PHP",
-          "icon": "devicon-php-plain",
-          "level": "Medium",
-          "description": "Developing dynamic web applications and managing servers with PHP.",
-          "color": "bg-orange-600"
         },
         {
           "name": "Tailwind CSS",

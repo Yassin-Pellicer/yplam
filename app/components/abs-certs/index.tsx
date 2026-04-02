@@ -34,7 +34,7 @@ export const AbsCerts = () => {
           <Wrench size={42} strokeWidth={1.2} />
           {t("sections.skills.title")}
         </h2>
-        <div className="grid md:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-3 grid-cols-2 sm:grid-cols-2 gap-4">
           {skills.map((skill, index) => {
             return (
               <div
@@ -44,12 +44,12 @@ export const AbsCerts = () => {
                 <div className="flex h-full flex-col justify-between gap-4">
                   <div className="flex flex-col gap-3">
                     <div className="flex flex-row items-center gap-2 flex-wrap">
-                      <i className={`${skill.icon} text-foreground! text-3xl`}></i>
+                      <i className={`${skill.icon} text-foreground! sm:text-3xl text-2xl`}></i>
                       <h3 className="sm:text-xl font-bold text-foreground! tracking-tight">
                         {skill.name}
                       </h3>
                     </div>
-                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    <p className="sm:block hidden text-sm sm:text-base text-muted-foreground leading-relaxed">
                       {skill.description}
                     </p>
                   </div>

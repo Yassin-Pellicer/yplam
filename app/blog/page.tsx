@@ -61,7 +61,7 @@ export default function BlogPage() {
         <Header style="black" />
 
         <div className="w-full border-border px-4 sm:px-12 pt-14 flex-1 flex">
-          <div className="mx-auto w-full max-w-[1400px] border-b border-x border-border bg-background px-4 sm:px-8 py-8 min-h-full flex-1">
+          <div className="mx-auto w-full max-w-[1400px] border-b border-x border-border bg-background px-4 sm:px-8 py-4 min-h-full flex-1">
             <div className="grid grid-cols-1 xl:grid-cols-[280px_minmax(0,1fr)_260px] gap-4 items-start">
               <aside className="rounded-2xl border border-border bg-card p-4 h-fit xl:sticky xl:top-20">
                 <div className="flex items-center gap-3">

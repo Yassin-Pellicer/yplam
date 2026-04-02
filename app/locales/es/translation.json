@@ -123,7 +123,7 @@
       "title": "Habilidades y Certificaciones",
       "items": [
         {
-          "name": "Frontend Development",
+          "name": "Frontend",
           "icon": "devicon-react-original",
           "level": "Avanzado",
           "description": "Experiencia sólida construyendo interfaces con React y tecnologías modernas del frontend.",
@@ -137,14 +137,14 @@
           "color": "bg-green-600"
         },
         {
-          "name": "Backend Development",
+          "name": "Backend",
           "icon": "devicon-nodejs-plain",
           "level": "Avanzado",
           "description": "Desarrollo de APIs y lógica del servidor utilizando Node.js y Express.",
           "color": "bg-amber-600"
         },
         {
-          "name": "Database Management",
+          "name": "Databases",
           "icon": "devicon-postgresql-plain",
           "level": "Medio",
           "description": "Gestión y diseño de bases de datos relacionales con PostgreSQL y MongoDB.",
@@ -170,13 +170,6 @@
           "level": "Avanzado",
           "description": "Control de versiones eficiente y trabajo colaborativo mediante ramas y pull requests.",
           "color": "bg-red-600"
-        },
-        {
-          "name": "PHP",
-          "icon": "devicon-php-plain",
-          "level": "Medio",
-          "description": "Desarrollo de aplicaciones web dinámicas y gestión de servidores con PHP.",
-          "color": "bg-orange-600"
         },
         {
           "name": "Tailwind CSS",

@@ -1,7 +1,5 @@
 "use client";
 import "./lib/18n";
-
-import "devicon/devicon.min.css";
 import { Header } from "./components/header";
 import { Hero } from "./components/hero";
 import { InViewSection } from "./components/motion";
