@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter, usePathname } from "next/navigation";
 import { ThemeToggle } from "../theme-toggle";
+import { useRouteLoading } from "../route-loading";
 
 export const Header = ({ style = "" }: { style?: string }) => {
   const { i18n, t } = useTranslation();
@@ -13,6 +14,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
   const [menuOverlay, setMenuOverlay] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const { startRouteLoading } = useRouteLoading();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -26,6 +28,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
 
     if (section === blogSectionId) {
       if (pathname !== "/blog") {
+        startRouteLoading();
         router.push("/blog");
       }
       setMenuOverlay(false);
@@ -33,6 +36,7 @@ export const Header = ({ style = "" }: { style?: string }) => {
     }
 
     if (pathname !== "/") {
+      startRouteLoading();
       router.push("/");
       setTimeout(
         () => document.getElementById(section)?.scrollIntoView({ behavior: "smooth" }),
@@ -62,7 +66,12 @@ export const Header = ({ style = "" }: { style?: string }) => {
         <img
           src="/yo.jpg"
           alt="Logo"
-          onClick={() => router.push("/")}
+          onClick={() => {
+            if (pathname !== "/") {
+              startRouteLoading();
+              router.push("/");
+            }
+          }}
           className={`h-8 w-8 rounded-full sm:h-8 sm:w-8 transition-opacity duration-300 cursor-pointer ${isSolidHeader ? "opacity-100" : "opacity-0"
             }`}
         />

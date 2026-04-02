@@ -1,4 +1,5 @@
 import "./globals.css";
+import { RouteLoadingProvider } from "./components/route-loading";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <RouteLoadingProvider>{children}</RouteLoadingProvider>
+      </body>
     </html>
   );
 }

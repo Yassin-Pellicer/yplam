@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { useSearchStore } from "../components/search/context";
+import { useRouteLoading } from "../components/route-loading";
 import Search from "../components/search";
 import { InViewSection } from "../components/motion";
 import { Github, Linkedin, Mail, Download, SearchX, Clock3 } from "lucide-react";
@@ -25,6 +26,7 @@ export default function BlogPage() {
   const searchContext = useSearchStore();
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const { startRouteLoading } = useRouteLoading();
 
   const language = i18n.language;
   const curriculumUrl = language === "es" ? "/curriculum.pdf" : "/curriculum_english.pdf";
@@ -43,6 +45,7 @@ export default function BlogPage() {
 
   const openPost = (post: SearchResult) => {
     const route = post.link?.startsWith("/blog/") ? post.link : `/blog/${post.id}`;
+    startRouteLoading();
     router.push(route);
   };
 
@@ -146,7 +149,7 @@ export default function BlogPage() {
                       searchContext.searchResults.map((post) => (
                         <article
                           key={post.id}
-                          className="px-5 py-4 hover:bg-secondary/30 transition-colors cursor-pointer"
+                          className="px-5 py-4 hover:bg-secondary/10 transition-colors cursor-pointer"
                           onClick={() => openPost(post)}
                         >
                           <div className="flex flex-col gap-3">
@@ -206,7 +209,7 @@ export default function BlogPage() {
                     <button
                       key={`${post.id}-${index}`}
                       onClick={() => openPost(post)}
-                      className="flex items-start gap-3 group cursor-pointer w-full text-left hover:bg-secondary/30 rounded-lg p-1 transition-colors"
+                      className="flex items-start gap-3 group cursor-pointer w-full text-left hover:bg-secondary/10 rounded-lg p-1 transition-colors"
                     >
                       {post.image && (
                         <img

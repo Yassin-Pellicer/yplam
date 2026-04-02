@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/navigation";
 import { Computer } from "lucide-react";
+import { useRouteLoading } from "../route-loading";
 
 type Project = {
   indev?: boolean;
@@ -53,6 +54,7 @@ const resolveBlogId = (project: Project) => {
 const Projects = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const { startRouteLoading } = useRouteLoading();
 
   const projects = t("sections.projects.items", { returnObjects: true }) as Project[];
 
@@ -70,7 +72,10 @@ const Projects = () => {
           return (
             <article
               key={`${project.title}-${index}`}
-              onClick={() => router.push(`/blog/${blogId}`)}
+              onClick={() => {
+                startRouteLoading();
+                router.push(`/blog/${blogId}`);
+              }}
               className="rounded-2xl border border-border bg-card overflow-hidden hover:shadow-md transition-all duration-200 cursor-pointer h-100 flex flex-col"
             >
               <div className="relative h-48 w-full bg-muted overflow-hidden">

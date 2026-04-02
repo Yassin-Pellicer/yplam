@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useTranslation } from "next-i18next";
 import { Header } from "@/app/components/header";
 import { Footer } from "@/app/components/footer";
+import { useRouteLoading } from "@/app/components/route-loading";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
@@ -25,6 +26,7 @@ type Post = {
 export default function BlogPostPage() {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const { startRouteLoading } = useRouteLoading();
   const params = useParams();
 
   const rawId = params?.id;
@@ -85,7 +87,10 @@ export default function BlogPostPage() {
             <article className="flex flex-col rounded-2xl border border-border bg-card overflow-hidden">
               <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-border">
                 <button
-                  onClick={() => router.push("/blog")}
+                  onClick={() => {
+                    startRouteLoading();
+                    router.push("/blog");
+                  }}
                   className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/10 text-secondary-foreground px-3 py-1.5 hover:bg-accent transition-colors"
                 >
                   <ArrowLeft className="h-4 w-4" />

@@ -2,10 +2,12 @@
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { BookText } from "lucide-react";
+import { useRouteLoading } from "../route-loading";
 
 export const LatestOnBlog = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const { startRouteLoading } = useRouteLoading();
 
   type SearchResult = {
     id: string;
@@ -28,6 +30,7 @@ export const LatestOnBlog = () => {
 
   const openPost = (post: SearchResult) => {
     const route = post.link?.startsWith("/blog/") ? post.link : `/blog/${post.id}`;
+    startRouteLoading();
     router.push(route);
   };
 
