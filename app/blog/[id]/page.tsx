@@ -1,7 +1,6 @@
 "use client";
 
 import "../../lib/18n";
-import "devicon/devicon.min.css";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useTranslation } from "next-i18next";
@@ -10,7 +9,6 @@ import { Footer } from "@/app/components/footer";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github.css";
 import { ArrowLeft, BookOpenText } from "lucide-react";
 
 type Post = {
@@ -82,9 +80,8 @@ export default function BlogPostPage() {
     <div className="dotted-bg select-none min-h-screen w-full flex flex-col">
       <section className="flex flex-col items-center w-full flex-1">
         <Header style="black" />
-
-        <div className="w-full border-b border-foreground/10 px-4 sm:px-12 pt-16 pb-8 flex-1">
-          <div className="mx-auto w-full max-w-4xl border-x border-foreground/10 bg-background px-4 sm:px-8 py-8 min-h-full">
+        <div className="w-full border-b border-border sm:px-12 pt-14 flex-1">
+          <div className="blog-surface-blur mx-auto w-full max-w-5xl border-x border-border p-4 min-h-full">
             <article className="flex flex-col rounded-2xl border border-border bg-card overflow-hidden">
               <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-border">
                 <button

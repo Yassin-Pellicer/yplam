@@ -37,7 +37,7 @@ export const Carousel = ({ items }: { items: CarouselItem[] }) => {
         }}
       >
         {[...items, ...items, ...items].map((item, i) => (
-          <div key={i} className="w-[300px] bg-foreground/5 h-[300px] rounded-xl shadow-sm border-foreground/50 px-6 py-4 flex flex-col justify-center relative">
+          <div key={i} className="w-[300px] bg-card border-border border h-[300px] rounded-xl shadow-sm px-6 py-4 flex flex-col justify-center relative">
             {(() => {
               const Icon = getCarouselIcon(item.icon);
               return (

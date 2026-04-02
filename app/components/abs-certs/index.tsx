@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { BadgeCheck, Wrench } from "lucide-react";
+import { BadgeCheck, Calendar, PlaneTakeoff, Wrench } from "lucide-react";
 
 export const AbsCerts = () => {
   const { t } = useTranslation();
@@ -53,7 +53,7 @@ export const AbsCerts = () => {
                       {skill.description}
                     </p>
                   </div>
-                  <span className="bg-secondary/10/40 text-secondary-foreground text-xs sm:text-sm rounded-full py-1.5 px-3 flex w-fit">
+                  <span className="bg-secondary/10 text-secondary-foreground text-xs sm:text-sm rounded-full py-1.5 px-3 flex w-fit">
                     {skill.level}
                   </span>
                 </div>
@@ -86,8 +86,8 @@ export const AbsCerts = () => {
                     </h3>
                   </div>
                   <div className="flex flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-                    <p className="font-semibold">🏫 {skill.platform}</p>
-                    <p className="font-semibold">🗓️ {skill.date}</p>
+                    <p className="flex flex-row items-center gap-2 font-semibold"><PlaneTakeoff size={14}></PlaneTakeoff>{skill.platform}</p>
+                    <p className="flex flex-row items-center gap-2 font-semibold"><Calendar size={14}></Calendar>{skill.date}</p>
                   </div>
                   <p className="text-sm sm:text-base leading-relaxed text-muted-foreground pb-14">
                     {skill.description}

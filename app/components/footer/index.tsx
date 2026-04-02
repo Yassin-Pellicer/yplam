@@ -7,7 +7,7 @@ export const Footer = ({ style = "default" }: { style?: FooterStyle }) => {
 
   const footerClass =
     style === "black"
-      ? "bg-card border-t border-border text-muted-foreground"
+      ? "bg-card text-muted-foreground"
       : "bg-background/80 backdrop-blur-md border-t border-border text-muted-foreground";
 
   return (

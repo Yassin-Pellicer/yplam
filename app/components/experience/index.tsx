@@ -54,7 +54,7 @@ export const Experience = () => {
               <div
                 onClick={() => setSelectedExperienceId(exp.id)}
                 key={index}
-                className={`hover:cursor-pointer bg-card rounded-2xl sm:p-6 px-4 py-2 border border-border ${selectedExperienceId === exp.id ? "border-primary shadow-lg ring-1 ring-primary/30" : ""
+                className={`hover:cursor-pointer bg-card rounded-2xl sm:p-6 px-4 py-2 border border-border ${selectedExperienceId === exp.id ? "border-primary/20 shadow-lg ring-1 ring-primary/30" : ""
                   } hover:bg-muted/10 transition-all duration-300 hover:scale-[1.01] w-full`}
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full">

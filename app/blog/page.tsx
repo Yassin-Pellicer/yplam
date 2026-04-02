@@ -1,7 +1,6 @@
 "use client";
 
 import "../lib/18n";
-import "devicon/devicon.min.css";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/navigation";
 import { Footer } from "../components/footer";
@@ -54,17 +53,14 @@ export default function BlogPage() {
       : (t("allTechnologies", { returnObjects: true }) as [string, string][]).slice(0, 5).map((tech) => tech[0]);
 
   return (
-    <div className="dotted-bg select-none min-h-screen w-full flex flex-col">
+    <div className="wave-two-bg dotted-bg select-none min-h-screen w-full flex flex-col">
       <section className="flex flex-col items-center w-full flex-1">
         <Header style="black" />
 
-        <div className="w-full border-foreground/10 px-4 sm:px-12 pt-16 pb-8 flex-1">
-          <div className="mx-auto w-full max-w-[1400px] border-x border-foreground/10 bg-background px-4 sm:px-8 py-8 min-h-full">
+        <div className="w-full border-border px-4 sm:px-12 pt-14 flex-1 flex">
+          <div className="mx-auto w-full max-w-[1400px] border-x border-border bg-background px-4 sm:px-8 py-8 min-h-full flex-1">
             <div className="grid grid-cols-1 xl:grid-cols-[280px_minmax(0,1fr)_260px] gap-4 items-start">
               <aside className="rounded-2xl border border-border bg-card p-4 h-fit xl:sticky xl:top-20">
-                <div className="relative h-24 w-full rounded-xl overflow-hidden mb-4 bg-muted">
-                  <img src="/blog/blog.png" alt="Blog banner" className="h-full w-full object-cover" />
-                </div>
                 <div className="flex items-center gap-3">
                   <img
                     src="/yo.jpg"

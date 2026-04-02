@@ -25,7 +25,7 @@ export const About = () => {
     <section id="0" className="py-10 w-full rounded-2xl">
       <div className="max-w-6xl mx-auto">
         <h2 className="flex flex-row gap-4 text-5xl font-bold text-foreground! tracking-tighter items-center">
-          <User size={42}></User>{t("sections.about.title")}
+          <User size={42} strokeWidth={1.2}></User>{t("sections.about.title")}
         </h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">

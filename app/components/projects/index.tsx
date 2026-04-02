@@ -71,7 +71,7 @@ const Projects = () => {
             <article
               key={`${project.title}-${index}`}
               onClick={() => router.push(`/blog/${blogId}`)}
-              className="rounded-2xl border border-border bg-card overflow-hidden hover:shadow-md transition-all duration-200 cursor-pointer min-h-[420px] flex flex-col"
+              className="rounded-2xl border border-border bg-card overflow-hidden hover:shadow-md transition-all duration-200 cursor-pointer h-100 flex flex-col"
             >
               <div className="relative h-48 w-full bg-muted overflow-hidden">
                 {project.indev && (
@@ -91,7 +91,7 @@ const Projects = () => {
 
               <div className="flex flex-col h-full border-t border-border">
                 <div className="border-b border-border/70 px-4 py-3">
-                  <div className="flex items-center justify-center gap-2 min-h-[5rem]">
+                  <div className="flex items-center justify-center gap-2 h-16">
                     <h3 className="text-xl font-bold tracking-tight leading-tight text-foreground!">
                       {project.title}
                     </h3>
