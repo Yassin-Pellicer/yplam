@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 type RouteLoadingContextValue = {
   startRouteLoading: () => void;
@@ -11,7 +11,6 @@ const RouteLoadingContext = createContext<RouteLoadingContextValue | null>(null)
 
 export const RouteLoadingProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -46,7 +45,7 @@ export const RouteLoadingProvider = ({ children }: { children: React.ReactNode }
     }, 120);
 
     return () => clearTimeout(settleTimeout);
-  }, [pathname, searchParams, isLoading, stopRouteLoading]);
+  }, [pathname, isLoading, stopRouteLoading]);
 
   useEffect(() => {
     return () => clearTimeoutRef();
