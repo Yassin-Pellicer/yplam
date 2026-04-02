@@ -31,6 +31,28 @@ export default function FilterMenu() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    if (isMobile) {
+      document.body.style.overflow = "hidden";
+    }
+
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
   const hasActiveFilters =
     searchContext.tags.length > 0 || searchContext.technologies.length > 0;
   const activeFiltersCount =
@@ -52,8 +74,8 @@ export default function FilterMenu() {
             : "border-border text-muted-foreground hover:bg-secondary/10/40"
         }`}
       >
-        <Filter className="w-4 h-4 mr-1" />
-        {isSpanish ? "Filtros" : "Filter"}
+        <Filter className="w-3 h-3 mr-1" />
+        <p className="md:text-sm text-xs">{isSpanish ? "Filtros" : "Filter"}</p>
         {activeFiltersCount > 0 && (
           <span className="ml-1 px-1 text-xs bg-primary text-primary-foreground rounded-full">
             {activeFiltersCount}
@@ -63,21 +85,38 @@ export default function FilterMenu() {
       </button>
 
       {isOpen && (
-        <div
-          ref={menuRef}
-          className="absolute right-0 top-full mt-1 w-80 max-w-[calc(100vw-2rem)] bg-card border border-border rounded-lg shadow-lg z-50"
-        >
-          <div className="p-4">
+        <>
+          <button
+            type="button"
+            onClick={() => setIsOpen(false)}
+            aria-label={isSpanish ? "Cerrar filtros" : "Close filters"}
+            className="fixed inset-0 z-40 bg-black/40 md:hidden"
+          />
+          <div
+            ref={menuRef}
+            className="fixed left-1/2 top-1/2 z-50 w-[min(94vw,26rem)] max-h-[85vh] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-card shadow-lg overflow-hidden md:absolute md:left-auto md:top-full md:right-0 md:mt-1 md:w-80 md:max-w-[calc(100vw-2rem)] md:max-h-[70vh] md:translate-x-0 md:translate-y-0"
+          >
+            <div className="p-4 h-full overflow-y-auto">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-semibold text-foreground!">{isSpanish ? "Filtros" : "Filters"}</h3>
-              {hasActiveFilters && (
+              <div className="flex items-center gap-2">
+                {hasActiveFilters && (
+                  <button
+                    onClick={clearAllFilters}
+                    className="text-xs text-primary hover:text-primary/80"
+                  >
+                    {isSpanish ? "Limpiar" : "Clear all"}
+                  </button>
+                )}
                 <button
-                  onClick={clearAllFilters}
-                  className="text-xs text-primary hover:text-primary/80"
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  aria-label={isSpanish ? "Cerrar" : "Close"}
+                  className="md:hidden inline-flex items-center justify-center h-7 w-7 rounded-full border border-border text-muted-foreground hover:bg-secondary/10/40"
                 >
-                  {isSpanish ? "Limpiar" : "Clear all"}
+                  <X className="w-4 h-4" />
                 </button>
-              )}
+              </div>
             </div>
 
             <div className="mb-4">
@@ -170,7 +209,8 @@ export default function FilterMenu() {
               </div>
             )}
           </div>
-        </div>
+          </div>
+        </>
       )}
     </div>
   );

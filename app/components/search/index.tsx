@@ -20,8 +20,8 @@ export default function Search() {
           </h1>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-3">
-          <div className="relative w-full md:w-72">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-4 mt-3">
+          <div className="relative w-full lg:w-72">
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="search"
@@ -32,35 +32,31 @@ export default function Search() {
             />
           </div>
 
-          <div className="flex flex-row gap-4 items-center flex-wrap">
-            <span className="md:text-sm text-center text-xs text-muted-foreground">
-              {hooks.total} {isSpanish ? "Publicaciones" : "Posts"}
+          <div className="flex flex-row gap-2 items-center flex-wrap">
+            <span className="border-border border px-2 rounded-full py-1 md:text-sm text-center text-xs text-muted-foreground lg:mr-6">
+              {hooks.total} {isSpanish ? "Posts" : "Posts"}
             </span>
 
             <FilterMenu />
 
-            <div className="flex justify-center items-center gap-2 flex-wrap">
-              <button
-                onClick={() => searchContext.setSortBy("Latest")}
-                className={`px-2 hover:cursor-pointer md:text-sm text-xs rounded py-1 transition duration-100 ${
-                  searchContext.sortBy === "Latest"
-                    ? "bg-secondary/10 text-secondary-foreground border border-border"
-                    : "text-muted-foreground hover:bg-secondary/10/40"
+            <button
+              onClick={() => searchContext.setSortBy("Latest")}
+              className={`px-2 hover:cursor-pointer md:text-sm text-xs rounded py-1 transition duration-100 ${searchContext.sortBy === "Latest"
+                  ? "bg-secondary/10 text-secondary-foreground border border-border"
+                  : "text-muted-foreground hover:bg-secondary/10/40 border border-border"
                 }`}
-              >
-                {isSpanish ? "Recientes" : "Latest"}
-              </button>
-              <button
-                onClick={() => searchContext.setSortBy("Oldest")}
-                className={`px-2 hover:cursor-pointer md:text-sm text-xs rounded py-1 transition duration-100 ${
-                  searchContext.sortBy === "Oldest"
-                    ? "bg-secondary/10 text-secondary-foreground border border-border"
-                    : "text-muted-foreground hover:bg-secondary/10/40"
+            >
+              {isSpanish ? "Recientes" : "Latest"}
+            </button>
+            <button
+              onClick={() => searchContext.setSortBy("Oldest")}
+              className={`px-2 hover:cursor-pointer md:text-sm text-xs rounded py-1 transition duration-100 ${searchContext.sortBy === "Oldest"
+                  ? "bg-secondary/10 text-secondary-foreground border border-border"
+                  : "text-muted-foreground hover:bg-secondary/10/40 border border-border"
                 }`}
-              >
-                {isSpanish ? "Antiguas" : "Oldest"}
-              </button>
-            </div>
+            >
+              {isSpanish ? "Antiguas" : "Oldest"}
+            </button>
           </div>
         </div>
       </div>
