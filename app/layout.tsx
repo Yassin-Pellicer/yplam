@@ -38,6 +38,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var storedTheme = window.localStorage.getItem("theme");
+                  var systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                  var theme = storedTheme === "light" || storedTheme === "dark"
+                    ? storedTheme
+                    : (systemPrefersDark ? "dark" : "light");
+
+                  document.documentElement.classList.toggle("dark", theme === "dark");
+                  document.documentElement.dataset.theme = theme;
+                  document.documentElement.style.colorScheme = theme;
+                } catch (error) {}
+              })();
+            `,
+          }}
+        />
         {/* Google Fonts */}
         <link
           href="https://fonts.googleapis.com/css2?family=Over+the+Rainbow&display=swap"
