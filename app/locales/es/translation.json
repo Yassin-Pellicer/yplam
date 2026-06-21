@@ -207,6 +207,7 @@
     "projects": {
       "title": "Proyectos",
       "viewCode": "Ver código",
+      "viewArticle": "Ver artículo",
       "developedIn": "",
       "inDevelopment": "¡Actualmente en desarrollo!",
       "comingSoon": "¡En camino!",
@@ -512,6 +513,35 @@
     ]
   ],
   "blog": {
-    "title": "¡Últimas publicaciones!"
+    "title": "¡Últimas publicaciones!",
+    "recentPosts": "Publicaciones recientes",
+    "readMore": "Leer más",
+    "back": "Volver",
+    "topics": "Temas",
+    "noHeadings": "Este artículo todavía no tiene subtítulos.",
+    "noResults": {
+      "title": "No hemos encontrado publicaciones con esos filtros",
+      "description": "Prueba con otros términos o ajusta los filtros para encontrar resultados."
+    },
+    "search": {
+      "placeholder": "Buscar publicaciones...",
+      "countLabel": "Publicaciones",
+      "latest": "Recientes",
+      "oldest": "Antiguas"
+    },
+    "filters": {
+      "button": "Filtros",
+      "title": "Filtros",
+      "clearAll": "Limpiar",
+      "tags": "Etiquetas",
+      "technologies": "Tecnologías",
+      "active": "Filtros activos",
+      "close": "Cerrar",
+      "closeMenu": "Cerrar filtros"
+    },
+    "sidebar": {
+      "role": "Software Engineer | Especializado en Ciencias de la Computación",
+      "location": "Alzira, Comunitat Valenciana"
+    }
   }
 }

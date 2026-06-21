@@ -1,7 +1,8 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
 type Theme = "light" | "dark";
 
@@ -36,19 +37,19 @@ export const ThemeToggle = () => {
 
   const isDark = theme === "dark";
 
+  const handleThemeChange = (nextTheme: Theme) => {
+    setTheme(nextTheme);
+    applyTheme(nextTheme);
+  };
+
   return (
-    <button
+    <AnimatedThemeToggler
       type="button"
-      onClick={() => {
-        const nextTheme = isDark ? "light" : "dark";
-        setTheme(nextTheme);
-        applyTheme(nextTheme);
-      }}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground! hover:bg-secondary/10 transition-colors"
+      theme={theme}
+      onThemeChange={handleThemeChange}
+      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground! transition-colors hover:bg-secondary/10 [&>svg]:h-4 [&>svg]:w-4"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-    >
-      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-    </button>
+    />
   );
 };

@@ -31,17 +31,6 @@ export default function BlogPage() {
   const language = i18n.language;
   const curriculumUrl = language === "es" ? "/curriculum.pdf" : "/curriculum_english.pdf";
   const dateLocale = language?.startsWith("es") ? "es-ES" : "en-US";
-  const readMoreLabel = language?.startsWith("es") ? "Leer más" : "Read More";
-  const noResultsTitle = language?.startsWith("es")
-    ? "No hemos encontrado publicaciones con esos filtros"
-    : "No posts found with those filters";
-  const noResultsDescription = language?.startsWith("es")
-    ? "Prueba con otros términos o ajusta los filtros para encontrar resultados."
-    : "Try a different search term or adjust filters to find matching posts.";
-  const recentPostsTitle = language?.startsWith("es") ? "Publicaciones recientes" : "Recent Posts";
-  const profileRole = language?.startsWith("es")
-    ? "Software Engineer | Especializado en Ciencias de la Computación"
-    : "Software Engineer | Specialized in Computer Science";
 
   const openPost = (post: SearchResult) => {
     const route = post.link?.startsWith("/blog/") ? post.link : `/blog/${post.id}`;
@@ -56,14 +45,13 @@ export default function BlogPage() {
       : (t("allTechnologies", { returnObjects: true }) as [string, string][]).slice(0, 5).map((tech) => tech[0]);
 
   return (
-    <div className="wave-two-bg dotted-bg select-none min-h-screen w-full flex flex-col">
+    <div className="wave-two-bg blog-page-shell dotted-bg min-h-screen w-full flex flex-col">
       <section className="flex flex-col items-center w-full flex-1">
         <Header style="black" />
-
-        <div className="w-full border-border px-4 sm:px-12 pt-14 flex-1 flex">
-          <div className="mx-auto w-full max-w-[1400px] border-b border-x border-border bg-background px-4 sm:px-8 py-4 min-h-full flex-1">
-            <div className="grid grid-cols-1 xl:grid-cols-[280px_minmax(0,1fr)_260px] gap-4 items-start">
-              <aside className="rounded-2xl border border-border bg-card p-4 h-fit xl:sticky xl:top-20">
+        <div className="w-full border-border sm:px-12 pt-14 flex-1 flex">
+          <div className="mx-auto w-full max-w-[1400px] border-b border-x border-border bg-background px-4 sm:px-4 py-4 min-h-full flex-1">
+            <div className="grid grid-cols-1 xl:grid-cols-[280px_minmax(0,1fr)_260px] items-start">
+              <aside className="p-4 h-fit self-start xl:sticky xl:top-18 xl:z-20">
                 <div className="flex items-center gap-3">
                   <img
                     src="/yo.jpg"
@@ -72,10 +60,10 @@ export default function BlogPage() {
                   />
                   <div>
                     <b className="text-foreground! text-sm">Yassin Pellicer Lamla</b>
-                    <p className="text-xs text-muted-foreground">{profileRole}</p>
+                    <p className="text-xs text-muted-foreground">{t("blog.sidebar.role")}</p>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground mt-3">Alzira, Comunitat Valenciana</p>
+                <p className="text-xs text-muted-foreground mt-3">{t("blog.sidebar.location")}</p>
                 <div className="flex mt-4 gap-2">
                   <a
                     href="https://github.com/Yassin-Pellicer"
@@ -114,7 +102,7 @@ export default function BlogPage() {
                 </div>
               </aside>
 
-              <main className="min-w-0 rounded-2xl border border-border bg-card overflow-hidden">
+              <main className="min-w-0 border-x overflow-visible select-text">
                 <Search />
                 <InViewSection
                   triggerKey={`${searchContext.searchTerm}-${searchContext.tags.join(",")}-${searchContext.technologies
@@ -127,9 +115,11 @@ export default function BlogPage() {
                         <div className="inline-flex h-16 w-16 rounded-full bg-secondary/10 items-center justify-center mb-4">
                           <SearchX className="h-8 w-8 text-muted-foreground" />
                         </div>
-                        <h3 className="text-2xl tracking-tight font-bold mb-2 text-foreground!">{noResultsTitle}</h3>
+                        <h3 className="text-2xl tracking-tight font-bold mb-2 text-foreground!">
+                          {t("blog.noResults.title")}
+                        </h3>
                         <p className="text-sm tracking-tight text-muted-foreground mb-5 max-w-2xl mx-auto">
-                          {noResultsDescription}
+                          {t("blog.noResults.description")}
                         </p>
                         <div className="flex flex-wrap justify-center gap-2">
                           {fallbackTags.slice(0, 4).map((tag, i) => (
@@ -190,7 +180,7 @@ export default function BlogPage() {
                                 }}
                                 className="flex items-center gap-1 font-bold rounded-xl text-sm text-primary hover:text-primary/80 transition-colors"
                               >
-                                {readMoreLabel}
+                                {t("blog.readMore")}
                                 <span className="material-symbols-outlined">arrow_right_alt</span>
                               </button>
                             </div>
@@ -201,9 +191,8 @@ export default function BlogPage() {
                   </div>
                 </InViewSection>
               </main>
-
-              <aside className="rounded-2xl border border-border bg-card p-4 h-fit xl:sticky xl:top-20">
-                <h3 className="text-lg font-bold mb-3 text-foreground! tracking-tight">{recentPostsTitle}</h3>
+              <aside className="p-4 h-fit self-start xl:sticky xl:top-18 xl:z-20 xl:max-h-[calc(100vh-6rem)] xl:overflow-y-auto xl:pr-1">
+                <h3 className="text-lg font-bold mb-3 text-foreground! tracking-tight">{t("blog.recentPosts")}</h3>
                 <div className="space-y-3">
                   {searchContext.allPosts.slice(0, 5).map((post, index) => (
                     <button

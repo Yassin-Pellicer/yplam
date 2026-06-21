@@ -1,10 +1,13 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Dock, DockIcon } from "@/components/ui/dock";
+import { TypingAnimation } from "@/components/ui/typing-animation";
+import { Download, Github, Linkedin, Mail } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 
 export const Hero = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isClient, setIsClient] = useState(false);
+  const curriculumUrl = i18n.language === "es" ? "/curriculum.pdf" : "/curriculum_english.pdf";
 
   useEffect(() => {
     setIsClient(true);
@@ -16,7 +19,7 @@ export const Hero = () => {
         <p className="font-bold text-lg md:text-xl text-foreground! mb-8">
           {isClient ? t("hero.greeting") : ""}
         </p>
-        
+
         <div className="flex flex-col items-center justify-center gap-6 mb-4">
           <img
             src="/yo.jpg"
@@ -24,50 +27,77 @@ export const Hero = () => {
             className="w-42 h-42 mb-4 rounded-full object-cover border-white shadow-lg"
           />
           <h1
-            className="text-6xl md:text-8xl text-foreground! text-center "
-            style={{ fontFamily: "Over The Rainbow" }}
+            className="hero-rainbow-name text-6xl md:text-8xl text-foreground! text-center"
           >
             Yassin Pellicer <br></br>Lamla
           </h1>
         </div>
-        
-        <p className="text-xl md:text-2xl font-bold text-foreground! mb-8">
+
+        <p className="text-xl md:text-2xl font-bold text-foreground! mb-8 w-2/3 sm:h-18 h-22">
           {isClient ? (
             <>
-              {t("hero.title")}<br/>{t("hero.subtitle")}
+              <TypingAnimation className="leading-normal!">
+                {t("hero.title")}
+              </TypingAnimation>
+              <br />
             </>
           ) : (
-            <>&nbsp;</> 
+            <>&nbsp;</>
           )}
         </p>
-        
-        <div className="flex justify-center space-x-6">
-          <a
-            href="https://github.com/Yassin-Pellicer"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-foreground/10 backdrop-blur-md rounded-full hover:bg-foreground/20 transition-all hover:scale-110"
-          >
-            <Github className="w-6 h-6 text-foreground!" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/yassin-pellicer/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-foreground/10 backdrop-blur-md rounded-full hover:bg-foreground/20 transition-all hover:scale-110"
-          >
-            <Linkedin className="w-6 h-6 text-foreground!" />
-          </a>
-          <a
-            href="mailto:yassinpellicerlamla@gmail.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-foreground/10 backdrop-blur-md rounded-full hover:bg-foreground/20 transition-all hover:scale-110"
-          >
-            <Mail className="w-6 h-6 text-foreground!" />
-          </a>
-        </div>
-        
+
+        <Dock
+          iconSize={48}
+          iconMagnification={64}
+          iconDistance={120}
+          className="mx-auto mt-0 h-20 gap-3 rounded-full border border-border/70 bg-background/70 px-4 py-3 shadow-lg"
+        >
+          <DockIcon className="rounded-full backdrop-blur-md transition-colors hover:bg-foreground/5">
+            <a
+              href="https://github.com/Yassin-Pellicer"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="flex h-full w-full items-center justify-center rounded-full"
+            >
+              <Github className="h-6 w-6 text-foreground!" />
+            </a>
+          </DockIcon>
+          <DockIcon className="rounded-full backdrop-blur-md transition-colors hover:bg-foreground/5">
+            <a
+              href="https://www.linkedin.com/in/yassin-pellicer/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="flex h-full w-full items-center justify-center rounded-full"
+            >
+              <Linkedin className="h-6 w-6 text-foreground!" />
+            </a>
+          </DockIcon>
+          <DockIcon className="rounded-full backdrop-blur-md transition-colors hover:bg-foreground/5">
+            <a
+              href="mailto:yassinpellicerlamla@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email"
+              className="flex h-full w-full items-center justify-center rounded-full"
+            >
+              <Mail className="h-6 w-6 text-foreground!" />
+            </a>
+          </DockIcon>
+          <div className="mx-1 h-8 w-px bg-border/70" aria-hidden="true" />
+          <DockIcon className="rounded-full backdrop-blur-md transition-colors hover:bg-foreground/5">
+            <a
+              href={curriculumUrl}
+              download
+              aria-label="Download CV"
+              className="flex h-full w-full items-center justify-center rounded-full"
+            >
+              <Download className="h-6 w-6 text-foreground!" />
+            </a>
+          </DockIcon>
+        </Dock>
+
         <button
           onClick={() => {
             window.scrollTo({
@@ -78,7 +108,6 @@ export const Hero = () => {
           className="flex gap-4 sm:mt-20 mt-8 text-foreground! hover:cursor-pointer transition-colors items-center space-x-2 p-3 rounded-full bg-foreground/10"
         >
           <span className="material-symbols-outlined">arrow_downward</span>
-          {isClient ? t("hero.cta") : ""}
         </button>
       </div>
     </section>

@@ -208,6 +208,7 @@
     "projects": {
       "title": "Projects",
       "viewCode": "View code",
+      "viewArticle": "Read article",
       "developedIn": "",
       "inDevelopment": "Currently in development!",
       "comingSoon": "Coming soon!",
@@ -515,6 +516,35 @@
     ]
   ],
   "blog": {
-    "title": "Latest on my blog!"
+    "title": "Latest on my blog!",
+    "recentPosts": "Recent posts",
+    "readMore": "Read more",
+    "back": "Back",
+    "topics": "Topics",
+    "noHeadings": "This article does not have section headings yet.",
+    "noResults": {
+      "title": "No posts found with those filters",
+      "description": "Try a different search term or adjust filters to find matching posts."
+    },
+    "search": {
+      "placeholder": "Search posts...",
+      "countLabel": "Posts",
+      "latest": "Latest",
+      "oldest": "Oldest"
+    },
+    "filters": {
+      "button": "Filter",
+      "title": "Filters",
+      "clearAll": "Clear all",
+      "tags": "Tags",
+      "technologies": "Technologies",
+      "active": "Active filters",
+      "close": "Close",
+      "closeMenu": "Close filters"
+    },
+    "sidebar": {
+      "role": "Software Engineer | Specialized in Computer Science",
+      "location": "Alzira, Valencian Community"
+    }
   }
 }

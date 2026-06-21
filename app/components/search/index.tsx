@@ -7,26 +7,18 @@ import { useTranslation } from "next-i18next";
 export default function Search() {
   const hooks = useSearch();
   const searchContext = useSearchStore();
-  const { t, i18n } = useTranslation();
-
-  const isSpanish = i18n.language?.startsWith("es");
+  const { t } = useTranslation();
 
   return (
-    <div className="bg-card border-b border-border">
-      <div className="px-4 py-3">
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          <h1 className="md:text-2xl text-xl font-bold tracking-tighter text-foreground!">
-            {t("blog.title")}
-          </h1>
-        </div>
-
+    <div className="border-b border-border">
+      <div className="px-4 pb-3">
         <div className="flex flex-col lg:flex-row lg:justify-between gap-4 mt-3">
           <div className="relative w-full lg:w-72">
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="search"
               className="w-full pl-8 pr-2 py-2 border rounded-lg border-border bg-background text-sm text-foreground! placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/25"
-              placeholder={isSpanish ? "Buscar publicaciones..." : "Search posts..."}
+              placeholder={t("blog.search.placeholder")}
               value={searchContext.searchTerm}
               onChange={(e) => searchContext.setSearchTerm(e.target.value)}
             />
@@ -34,7 +26,7 @@ export default function Search() {
 
           <div className="flex flex-row gap-2 items-center flex-wrap">
             <span className="border-border border px-2 rounded-full py-1 md:text-sm text-center text-xs text-muted-foreground lg:mr-6">
-              {hooks.total} {isSpanish ? "Posts" : "Posts"}
+              {hooks.total} {t("blog.search.countLabel")}
             </span>
 
             <FilterMenu />
@@ -46,7 +38,7 @@ export default function Search() {
                   : "text-muted-foreground hover:bg-secondary/10/40 border border-border"
                 }`}
             >
-              {isSpanish ? "Recientes" : "Latest"}
+              {t("blog.search.latest")}
             </button>
             <button
               onClick={() => searchContext.setSortBy("Oldest")}
@@ -55,7 +47,7 @@ export default function Search() {
                   : "text-muted-foreground hover:bg-secondary/10/40 border border-border"
                 }`}
             >
-              {isSpanish ? "Antiguas" : "Oldest"}
+              {t("blog.search.oldest")}
             </button>
           </div>
         </div>

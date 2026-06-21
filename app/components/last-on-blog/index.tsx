@@ -25,7 +25,6 @@ export const LatestOnBlog = () => {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  const readMoreLabel = i18n.language?.startsWith("es") ? "Leer más" : "Read More";
   const dateLocale = i18n.language?.startsWith("es") ? "es-ES" : "en-US";
 
   const openPost = (post: SearchResult) => {
@@ -105,7 +104,7 @@ export const LatestOnBlog = () => {
               }}
               className="flex items-center gap-1 font-bold rounded-xl text-sm transition-all text-primary hover:text-primary/80 hover:cursor-pointer"
             >
-              {readMoreLabel}
+              {t("blog.readMore")}
               <span className="material-symbols-outlined">
                 arrow_right_alt
               </span>

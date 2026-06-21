@@ -1,12 +1,12 @@
 'use client';
 
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type Key, type ReactNode } from 'react';
 import { useTranslation } from 'next-i18next';
 
 type InViewSectionProps = {
-  children: React.ReactNode;
-  triggerKey?: string | number | any; // 🔑 external trigger
+  children: ReactNode;
+  triggerKey?: Key; // external trigger
 };
 
 export const InViewSection = ({ children, triggerKey }: InViewSectionProps) => {

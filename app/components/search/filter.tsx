@@ -10,10 +10,9 @@ export default function FilterMenu() {
 
   const searchContext = useSearchStore();
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const allTags = t("allTags", { returnObjects: true }) as string[];
   const allTechnologies = t("allTechnologies", { returnObjects: true }) as [string, string][];
-  const isSpanish = i18n.language?.startsWith("es");
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -71,11 +70,11 @@ export default function FilterMenu() {
         className={`flex items-center px-2 py-1 border rounded text-sm transition-colors ${
           hasActiveFilters
             ? "border-primary bg-primary/10 text-primary"
-            : "border-border text-muted-foreground hover:bg-secondary/10/40"
+          : "border-border text-muted-foreground hover:bg-secondary/10/40"
         }`}
       >
         <Filter className="w-3 h-3 mr-1" />
-        <p className="md:text-sm text-xs">{isSpanish ? "Filtros" : "Filter"}</p>
+        <p className="md:text-sm text-xs">{t("blog.filters.button")}</p>
         {activeFiltersCount > 0 && (
           <span className="ml-1 px-1 text-xs bg-primary text-primary-foreground rounded-full">
             {activeFiltersCount}
@@ -89,7 +88,7 @@ export default function FilterMenu() {
           <button
             type="button"
             onClick={() => setIsOpen(false)}
-            aria-label={isSpanish ? "Cerrar filtros" : "Close filters"}
+            aria-label={t("blog.filters.closeMenu")}
             className="fixed inset-0 z-40 bg-black/40 md:hidden"
           />
           <div
@@ -97,30 +96,30 @@ export default function FilterMenu() {
             className="fixed left-1/2 top-1/2 z-50 w-[min(94vw,26rem)] max-h-[85vh] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-card shadow-lg overflow-hidden md:absolute md:left-auto md:top-full md:right-0 md:mt-1 md:w-80 md:max-w-[calc(100vw-2rem)] md:max-h-[70vh] md:translate-x-0 md:translate-y-0"
           >
             <div className="p-4 h-full overflow-y-auto">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-foreground!">{isSpanish ? "Filtros" : "Filters"}</h3>
-              <div className="flex items-center gap-2">
-                {hasActiveFilters && (
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold text-foreground!">{t("blog.filters.title")}</h3>
+                <div className="flex items-center gap-2">
+                  {hasActiveFilters && (
+                    <button
+                      onClick={clearAllFilters}
+                      className="text-xs text-primary hover:text-primary/80"
+                    >
+                      {t("blog.filters.clearAll")}
+                    </button>
+                  )}
                   <button
-                    onClick={clearAllFilters}
-                    className="text-xs text-primary hover:text-primary/80"
+                    type="button"
+                    onClick={() => setIsOpen(false)}
+                    aria-label={t("blog.filters.close")}
+                    className="md:hidden inline-flex items-center justify-center h-7 w-7 rounded-full border border-border text-muted-foreground hover:bg-secondary/10/40"
                   >
-                    {isSpanish ? "Limpiar" : "Clear all"}
+                    <X className="w-4 h-4" />
                   </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  aria-label={isSpanish ? "Cerrar" : "Close"}
-                  className="md:hidden inline-flex items-center justify-center h-7 w-7 rounded-full border border-border text-muted-foreground hover:bg-secondary/10/40"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+                </div>
               </div>
-            </div>
 
             <div className="mb-4">
-              <h4 className="text-sm font-medium text-foreground! mb-2">Tags</h4>
+              <h4 className="text-sm font-medium text-foreground! mb-2">{t("blog.filters.tags")}</h4>
               <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
                 {allTags.map((tag) => {
                   const isSelected = searchContext.tags.includes(tag);
@@ -144,7 +143,7 @@ export default function FilterMenu() {
 
             <div className="mb-4">
               <h4 className="text-sm font-medium text-foreground! mb-2">
-                {isSpanish ? "Tecnologías" : "Technologies"}
+                {t("blog.filters.technologies")}
               </h4>
               <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
                 {allTechnologies.map((tech) => {
@@ -173,7 +172,7 @@ export default function FilterMenu() {
             {hasActiveFilters && (
               <div className="pt-3 border-t border-border">
                 <h4 className="text-sm font-medium text-foreground! mb-2">
-                  {isSpanish ? "Filtros activos" : "Active Filters"}
+                  {t("blog.filters.active")}
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {searchContext.tags.map((tag) => (

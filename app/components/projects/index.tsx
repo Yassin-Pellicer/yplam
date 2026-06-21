@@ -52,7 +52,7 @@ const resolveBlogId = (project: Project) => {
 };
 
 const Projects = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
   const { startRouteLoading } = useRouteLoading();
 
@@ -125,7 +125,7 @@ const Projects = () => {
 
                 <div className="mt-auto px-4 pb-4 pt-4">
                   <div className="text-sm font-bold text-primary flex items-center gap-1">
-                    {i18n.language?.startsWith("es") ? "Ver artículo" : "Read article"}
+                    {t("sections.projects.viewArticle")}
                     <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
                       arrow_right_alt
                     </span>
